@@ -1,0 +1,32 @@
+<thead>
+	<tr>
+		<th>학수번호</th>
+		<th>과목명</th>
+		<th>학년</th>
+		<th>학점</th>
+		<th>과목구분</th>
+		<th>시간 및 강의실</th>
+		<th>담당교수</th>
+		<th>평가방식</th>
+		<th>비고</th>
+	</tr>
+</thead>
+<tbody>
+	<%if re.count != 0 %>
+		<%=re.each do |r| %>
+			<tr class = "search_result_tr" data-link="<%=r.time%>" data-code="<%=r.code%>")>
+				<td><%=r.code%></td>
+				<td><%=r.title%></td>
+				<td><%=r.grade%></td>
+				<td><%=r.credit%></td>
+				<td><%=r.class_type[0]%><%=r.class_type[2]%></td>
+				<td><%=r.time%></td>
+				<td><%=r.instructor%></td>
+				<td><%=r.eval[0...2]%></td>
+				<td><%=r.etc%></td>
+			</tr>
+		<%end%>
+	<%else%>
+		<td colspan = "10" >수업을 찾지 못했습니다.</td>
+	<%end%>
+</tbody>

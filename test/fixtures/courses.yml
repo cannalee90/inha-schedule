@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  group: MyString
+  title: MyString
+  grade: MyString
+  credit: 1.5
+  type: 
+  time: MyString
+  instructor: MyString
+  gtype: MyString
+  etc: MyString
+  code: MyString
+  group: MyString
+
+two:
+  group: MyString
+  title: MyString
+  grade: MyString
+  credit: 1.5
+  type: 
+  time: MyString
+  instructor: MyString
+  gtype: MyString
+  etc: MyString
+  code: MyString
+  group: MyString

@@ -1,0 +1,216 @@
+<div class="container">
+	<div id="content_wrapper" class = "col-md-10">
+		<div id = "search_form_wrapper">
+			<%=form_tag({controller: "courses", action: "search"}, remote: true, method: "post") do %>
+				<div class="input-group">
+				 	<%= text_field_tag :query, "", class: 'form-control'%>
+	        <span class="input-group-btn">
+	        	<%= submit_tag "검색", class: 'btn btn-danger'%>
+	        </span>
+	    	</div>
+     	<%end%>
+		</div>
+		<div id = "result_form_wrapper">
+			<table id = "search_result" class = "table table-bordered">
+				<thead>
+					<tr>
+						<th>학수번호</th>
+						<th>과목명</th>
+						<th>학년</th>
+						<th>학점</th>
+						<th>과목구분</th>
+						<th>시간 및 강의실</th>
+						<th>담당교수</th>
+						<th>평가</th>
+						<th>비고</th>
+					</tr>
+				</thead>
+			</table>
+		</div><!--end of result_form_wrapper-->
+		<div id = "result_show_wrapper">
+			<div id = "alltimecellcontainer"></div>
+			<table id = "timetable" class = "table table-bordered timetable">
+				<thead>
+					<tr>
+						<th class = "classes_time">교시\요일</th>
+						<th class = "col-md-2">월</th>
+						<th class = "col-md-2">화</th>
+						<th class = "col-md-2">수</th>
+						<th class = "col-md-2">목</th>
+						<th class = "col-md-2">금</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td rowspan = "2"><span class = "timecell" >09:00~10:00</span></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+
+					</tr>
+					<tr>
+						<td rowspan="2"><span class = "timecell">10:00~11:00</span></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+
+						<td></td>
+					</tr>
+					<tr>
+						<td rowspan="2"><span class = "timecell">11:00~12:00</span></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td rowspan="2"><span class = "timecell">12:00~13:00</span></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td rowspan="2"><span class = "timecell">13:00~14:00</span></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td rowspan = "2"><span class = "timecell">14:00~15:00</span></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td rowspan = "2"><span class = "timecell">15:00~16:00</span></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td rowspan = "2"><span class = "timecell">16:00~17:00</span></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td rowspan = "2"><span class = "timecell">17:00~18:00</span></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td rowspan = "2"><span class = "timecell">18:00~19:00</span></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td rowspan = "2"><span class = "timecell">19:00~20:00</span></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>					
+				</tbody>
+			</table>
+		</div><!--end of result_show_wrapper-->
+	</div><!--end of content_wrapper-->
+	<div id = "chat_container"></div>
+</div><!--end of container-->

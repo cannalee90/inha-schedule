@@ -1,0 +1,66 @@
+#result_form_wrapper {
+	margin-top: 10px;
+	height: 250px;
+	overflow: auto;
+	border: none;
+}
+
+
+div.timecellcontainer {
+  position: absolute;
+}
+
+div.addedcell {
+  position: relative;
+  text-align: center;
+  cursor: pointer;
+  display: block;
+  border-radius: 8px;
+}
+
+
+
+div.addedcell > div.outer > div.inner {
+	color: #fff;
+	font-weight : bold;
+}
+
+#result_show_wrapper {
+	margin-top: 10px;
+	border: none;
+}
+
+div#alltimecellcontainer {	
+}
+
+#timetable> tbody > tr > td > .timecell {
+	font-size: 0.8em;
+}
+
+#search_result > thead > tr > th,  #search_result > tbody > tr > td {
+	text-align : center;
+	padding : 6px;
+	font-size : 9pt;
+}
+
+
+#timetable > thead > tr > th, #timetable > tbody > tr > td  {
+	text-align : center;
+	height: 20px;
+	padding : 8px;
+}
+
+
+.classes_time {
+	width : 10%;
+}
+
+
+
+#chat_container {
+	position: fixed;
+	right: 0px;
+	height: 100%;
+	width: 240px;
+	border: 1px solid red;
+}
