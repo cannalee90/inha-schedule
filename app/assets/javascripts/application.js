@@ -17,5 +17,8 @@
 //= require bootstrap
 
 jQuery(document).ready(function() {
-    App.init();
+   App.init();
+	$('.selectpicker').selectpicker({
+	  width: 'auto'
+	});
 });

@@ -1,8 +1,10 @@
 <div class="container">
 	<div id="content_wrapper" class = "col-md-10">
 		<div id = "search_form_wrapper">
-			<%=form_tag({controller: "courses", action: "search"}, remote: true, method: "post") do %>
+			<%=form_tag({controller: "courses", action: "search"}, remote: true,  method: "post") do %>
 				<div class="input-group">
+						<%= select_tag(:query_kind, options_for_select([['과목명', 1], ['교수명', 2], ["학수번호",3]]), class: "selectpicker show-tick main-selector") %>
+
 				 	<%= text_field_tag :query, "", class: 'form-control'%>
 	        <span class="input-group-btn">
 	        	<%= submit_tag "검색", class: 'btn btn-danger'%>

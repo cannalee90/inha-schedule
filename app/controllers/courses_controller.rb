@@ -21,10 +21,14 @@ class CoursesController < ApplicationController
   end
 
   def search
-    @query = params[:query]
-    Course.where('title LIKE ?','%공업%')
-    @ret = Course.find(1)
-    @ret = Course.where('title LIKE ?', "%" + params[:query] + "%")
+    query = params[:query]
+    if params[:query_kind] == "2"
+      @ret = Course.instructor(query)
+    elsif params[:query_kind] == "3"
+      @ret = Course.code(query)
+    else
+      @ret = Course.title(query)
+    end
     respond_to do |format|
         format.js {
           render :template => "/courses/search.js.erb", 

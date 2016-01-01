@@ -216,3 +216,4 @@ $(document).on('click', '#search_result > tbody> tr', function() {
 	$('#total_credit').text(total_credit);
 })
 
+
