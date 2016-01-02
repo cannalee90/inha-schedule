@@ -115,7 +115,7 @@ function filling(selected, status) {
 			}
 			else{
 				$(cur).attr('status', 'tmp');
-				$(cur).css({'background' : 'grey'});
+				$(cur).css({'background' : 'grey', 'opacity' : 0.8, 'z-index' : 200});
 			}
 			$(cur).append('<div class = "outer"></div>');
 			$(cur).find('.outer').append('<div class = "inner"></div>');
@@ -151,7 +151,7 @@ $(window).resize(function() {
 	}
 });
 
-$(document).on('click tabone', 'div.addedcell' , function() {
+$(document).on('click', 'div.addedcell' , function() {
 	var timeArray = $(this).attr('class-time').split(',');
 	for(var i in timeArray) {
 		cur = timeArray[i];
@@ -167,7 +167,7 @@ $(document).on('click tabone', 'div.addedcell' , function() {
 });
 
 
-$(document).on('mouseenter', '#search_result > tbody> tr', function() {
+/*$(document).on('mouseenter', '#search_result > tbody> tr', function() {
 	var selected = {
 		code : $(this).data('code'),
 		time : $(this).data('link'),
@@ -185,19 +185,45 @@ $(document).on('mouseleave', '#search_result > tbody> tr', function() {
 			$(cell).eq(i).parent().remove();	
 		}
 	}
-});
+});*/
 
-$(document).on('click tabone', '#search_result > tbody> tr', function() {
-	var selected = {
+$(document).on('click', '#search_result > tbody> tr', function() {
+	$('span#added').remove();
+	var cell = $('div.addedcell');
+		for(var i = 0; i < $(cell).length; i++) {
+			if($(cell).eq(i).attr('status') == "tmp") {
+				$(cell).eq(i).parent().remove();	
+		}
+	}
+	$(this).children().eq(1).append('<span class = "label rounded-2x label-success" id = "added">추가</span>')
+		var selected = {
 		code : $(this).data('code'),
 		time : $(this).data('link'),
 		className : $(this).children(':nth-child(2)').text(),
 		classCredit : $(this).children(':nth-child(4)').text()
 	}
+	filling(selected, 0);
+})
+
+$(document).on('click', 'span#added', function(e) {
+	e.stopPropagation();
+	var selected = {
+		code : $(this).parent().parent().data('code'),
+		time : $(this).parent().parent().data('link'),
+		className : $(this).parent().parent().children(':nth-child(2)').text(),
+		classCredit : $(this).parent().parent().children(':nth-child(4)').text()
+	}
 	if(filling(selected, 1)) {
 		localStorage.setItem(selected['code'], JSON.stringify(selected));
 	} 
-	console.log(timetable)
+	var cell = $('div.addedcell');
+		for(var i = 0; i < $(cell).length; i++) {
+			if($(cell).eq(i).attr('status') == "tmp") {
+				$(cell).eq(i).parent().remove();	
+		}
+	}
+	console.log(timetable);
+
 })
 
 

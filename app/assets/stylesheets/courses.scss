@@ -38,9 +38,12 @@ div#alltimecellcontainer {
 }
 
 #search_result > thead > tr > th,  #search_result > tbody > tr > td {
-	text-align : center;
 	padding : 6px;
 	font-size : 9pt;
+}
+
+span#added {
+	margin-left : 10px;
 }
 
 
