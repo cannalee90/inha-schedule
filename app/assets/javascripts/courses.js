@@ -44,6 +44,102 @@ function isDay(days) {
 		return -1;
 }
 
+function filling(selected, status) {
+	var time = selected['time'];
+	var code = selected['code'];
+	var classes = new Array(0,0,0,0,0);
+	var begins = new Array(-1, -1, -1, -1, -1);
+	var numbers = new Array();
+	var cnt = 0;
+	var idx = -1;
+	var num = "";
+	var flag = -1;
+	var overlapped = false;
+	if(status == 1) {
+		if(codeHash.length > colors.length || total_credit + parseInt(selected['classCredit']) > 18 ) {
+			alert("수업을 더이상 추가할 수 없습니다");
+			return false;
+		}
+	}
+	for(var i = 0; i < time.length; i++) {
+		var tmp = isDay(time[i]);
+		var cur = time[i];
+		if(tmp != -1){
+			idx = tmp;
+			num = "";
+			flag = 1;
+		}
+		if((cur == ',' || cur ==  '(')){
+			if(status == 1) {
+				overlapped = isOverlapped(idx, parseInt(num));
+				if(overlapped == true) {
+					alert("시간표가 겹칩니다");
+					return false;
+				}	
+			}
+			if(flag == 1) {
+				begins[idx] = parseInt(num) - 1;
+				cnt++;
+			}
+			numbers.push(getIdx(idx, num));
+			classes[idx] ++;
+			flag = 0;
+			num = "";
+		}
+		else if(cur >= '0' && cur <= '9'){
+			num = num +  cur;
+		}
+	}	
+	
+	var className = selected['className'];
+	var firstHeight = $('.classes_time').outerHeight();
+	var height = $('#timetable > tbody > tr > td').outerHeight() / 2;
+	var leftMargin = $('.classes_time').outerWidth();
+	if(status == 1) {
+		var colorIdx = getColorIdx();
+		codeHash[code] = 1;
+	}
+	for(var i = 0; i < 5; i++) {
+		var timeCellWidth = $('#timetable > thead > tr > th').eq(i + 1).outerWidth();
+		if(begins[i] != -1){
+			$('div#alltimecellcontainer').prepend('<div class = "timecellcontainer">');
+			$('div.timecellcontainer:first').append('<div class ="addedcell" ></div>');
+			var cur = $('div.timecellcontainer:first > div.addedcell');
+			$(cur).attr('class-time', numbers);
+			$(cur).attr('class-code', code);
+			$(cur).attr('class-day', i);
+			$(cur).attr('class-credit', selected['classCredit']);
+			$(cur).css({'top' : (begins[i] * height) + firstHeight, 'left' : leftMargin, 'width' : timeCellWidth, 'height' : height * classes[i], background : colors[colorIdx]});
+			if(status == 1){
+				$(cur).attr('class-color', colorIdx);
+			}
+			else{
+				$(cur).attr('status', 'tmp');
+				$(cur).css({'background' : 'grey'});
+			}
+			$(cur).append('<div class = "outer"></div>');
+			$(cur).find('.outer').append('<div class = "inner"></div>');
+			cur = $(cur).find('.inner');
+			$(cur).append(code + '<br>');
+			$(cur).append(className);
+			if(status == 1) {
+				for(var j = 1; j <= classes[i]; j++) {
+					timetable[getIdx(i, parseInt(begins[i]) + j)] = 1;
+				}
+			}
+		}
+		leftMargin += timeCellWidth;
+	}
+	if(status == 1){
+		total_credit = parseInt(selected["classCredit"]) + total_credit;
+		$('#total_credit').text(total_credit);
+
+	}
+	return true;
+}
+
+
+
 $(window).resize(function() {
 	var timeCellWidth = $('#timetable > thead > tr > th').eq(2).outerWidth();
 	$('div.addedcell').css({"width" : timeCellWidth});
@@ -70,64 +166,18 @@ $(document).on('click', 'div.addedcell' , function() {
 	$('div.addedcell[class-code=' + selectors + ']').parent().remove();
 	total_credit = total_credit - parseInt($(this).attr('class-credit'));
 	$('#total_credit').text(total_credit); 	
+	localStorage.removeItem(selectors);
 });
 
 
 $(document).on('mouseenter', '#search_result > tbody> tr', function() {
-	var time = $(this).data("link");
-	var code = $(this).data("code");
-	var classes = new Array(0,0,0,0,0);
-	var begins = new Array(-1, -1, -1, -1, -1);
-	var numbers = new Array();
-	var cnt = 0;
-	var idx = -1;
-	var num = "";
-	var flag = -1;
-	var overlapped = false;
-	for(var i = 0; i < time.length; i++) {
-		var tmp = isDay(time[i]);
-		var cur = time[i];
-		if(tmp != -1){
-			idx = tmp;
-			num = "";
-			flag = 1;
-		}
-		if((cur == ',' || cur ==  '(')){
-			if(flag == 1) {
-				begins[idx] = parseInt(num) - 1;
-				cnt++;
-			}
-			numbers.push(getIdx(idx, num));
-			classes[idx] ++;
-			flag = 0;
-			num = "";
-		}
-		else if(cur >= '0' && cur <= '9'){
-			num = num +  cur;
-		}
-	}	
-	var className = $(this).children(':nth-child(2)').text();
-	var firstHeight = $('.classes_time').outerHeight();
-	var height = $('#timetable > tbody > tr > td').outerHeight() / 2;
-	var leftMargin = $('.classes_time').outerWidth();
-	for(var i = 0; i < 5; i++) {
-		var timeCellWidth = $('#timetable > thead > tr > th').eq(i + 1).outerWidth();
-		if(begins[i] != -1){
-			$('div#alltimecellcontainer').prepend('<div class = "timecellcontainer">');
-			$('div.timecellcontainer:first').append('<div class ="addedcell" ></div>');
-			var cur = $('div.timecellcontainer:first > div.addedcell');
-			$(cur).attr('class-time', numbers);
-			$(cur).attr('class-code', code);
-			$(cur).attr('status', 'tmp');
-			$(cur).css({'top' : (begins[i] * height) + firstHeight, 'left' : leftMargin, 'width' : timeCellWidth, 'height' : height * classes[i], 'background' : "grey", 'z-index' : 200, 'opacity' : 0.8});
-			$(cur).append('<div class = "outer"></div>');
-			$(cur).find('.outer').append('<div class = "inner"></div>');
-			cur = $(cur).find('.inner');
-			$(cur).append(code + '<br>');
-			$(cur).append(className);
-		}
-		leftMargin += timeCellWidth;
+	var selected = {
+		code : $(this).data('code'),
+		time : $(this).data('link'),
+		className : $(this).children(':nth-child(2)').text(),
+		classCredit : $(this).children(':nth-child(4)').text()
 	}
+	filling(selected, 0)
 });
 
 $(document).on('mouseleave', '#search_result > tbody> tr', function() {
@@ -140,80 +190,23 @@ $(document).on('mouseleave', '#search_result > tbody> tr', function() {
 	}
 });
 
-
 $(document).on('click', '#search_result > tbody> tr', function() {
-	var time = $(this).data("link");
-	var code = $(this).data("code");
-	var classes = new Array(0,0,0,0,0);
-	var begins = new Array(-1, -1, -1, -1, -1);
-	var numbers = new Array();
-	var cnt = 0;
-	var idx = -1;
-	var num = "";
-	var flag = -1;
-	var overlapped = false;
-	if(codeHash.length > colors.length || total_credit + parseInt($(this).children(':nth-child(4)').text()) > 18 ) {
-		alert("수업을 더이상 추가할 수 없습니다");
-		return false;
+	var selected = {
+		code : $(this).data('code'),
+		time : $(this).data('link'),
+		className : $(this).children(':nth-child(2)').text(),
+		classCredit : $(this).children(':nth-child(4)').text()
 	}
-	for(var i = 0; i < time.length; i++) {
-		var tmp = isDay(time[i]);
-		var cur = time[i];
-		if(tmp != -1){
-			idx = tmp;
-			num = "";
-			flag = 1;
-		}
-		if((cur == ',' || cur ==  '(')){
-			overlapped = isOverlapped(idx, parseInt(num));
-			if(overlapped == true) {
-				alert("시간표가 겹칩니다");
-				return false;
-			}	
-			if(flag == 1) {
-				begins[idx] = parseInt(num) - 1;
-				cnt++;
-			}
-			numbers.push(getIdx(idx, num));
-			classes[idx] ++;
-			flag = 0;
-			num = "";
-		}
-		else if(cur >= '0' && cur <= '9'){
-			num = num +  cur;
-		}
-	}	
-	var className = $(this).children(':nth-child(2)').text();
-	var firstHeight = $('.classes_time').outerHeight();
-	var height = $('#timetable > tbody > tr > td').outerHeight() / 2;
-	var leftMargin = $('.classes_time').outerWidth();
-	var colorIdx = getColorIdx();
-	codeHash[code] = 1;
-	for(var i = 0; i < 5; i++) {
-		var timeCellWidth = $('#timetable > thead > tr > th').eq(i + 1).outerWidth();
-		if(begins[i] != -1){
-			$('div#alltimecellcontainer').prepend('<div class = "timecellcontainer">');
-			$('div.timecellcontainer:first').append('<div class ="addedcell" ></div>');
-			var cur = $('div.timecellcontainer:first > div.addedcell');
-			$(cur).attr('class-time', numbers);
-			$(cur).attr('class-code', code);
-			$(cur).attr('class-color', colorIdx);
-			$(cur).attr('class-day', i);
-			$(cur).attr('class-credit', $(this).children(':nth-child(4)').text());
-			$(cur).css({'top' : (begins[i] * height) + firstHeight, 'left' : leftMargin, 'width' : timeCellWidth, 'height' : height * classes[i], background : colors[colorIdx]});
-			$(cur).append('<div class = "outer"></div>');
-			$(cur).find('.outer').append('<div class = "inner"></div>');
-			cur = $(cur).find('.inner');
-			$(cur).append(code + '<br>');
-			$(cur).append(className);
-			for(var j = 1; j <= classes[i]; j++) {
-				timetable[getIdx(i, parseInt(begins[i]) + j)] = 1;
-			}
-		}
-		leftMargin += timeCellWidth;
-	}
-	total_credit = parseInt($(this).children(':nth-child(4)').text()) + total_credit;
-	$('#total_credit').text(total_credit);
+	if(filling(selected, 1)) {
+		localStorage.setItem(selected['code'], JSON.stringify(selected));
+	} 
 })
 
+
+$(document).ready(function() {
+	for(var key in window.localStorage){
+		var selected = JSON.parse(localStorage.getItem(key));
+  	filling(selected, 1);
+	}
+});
 

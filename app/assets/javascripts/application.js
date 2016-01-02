@@ -12,12 +12,12 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require_tree .
+//= require_self
 //= require_tree ../unify-1.8/js
 //= require bootstrap
 
 jQuery(document).ready(function() {
-   App.init();
+  App.init();
 	$('.selectpicker').selectpicker({
 	  width: 'auto'
 	});

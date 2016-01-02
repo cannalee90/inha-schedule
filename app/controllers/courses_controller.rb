@@ -37,4 +37,8 @@ class CoursesController < ApplicationController
         }
     end
   end
+
+  def local
+  end
+  
 end
