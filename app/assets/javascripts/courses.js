@@ -120,7 +120,6 @@ function filling(selected, status) {
 			cur = $(cur).find('.inner');
 			$(cur).append(code + '<br>');
 			$(cur).append(className);
-			console.log(overlapped);
 				
 			if(overlapped == true) {
 				$(cur).text("");
@@ -202,7 +201,7 @@ $(document).on('click', '#search_result > tbody> tr', function() {
 		var selected = {
 		code : $(this).data('code'),
 		time : $(this).data('link'),
-		className : $(this).children(':nth-child(2)').text(),
+		className : $(this).children(':nth-child(2)').children(':nth-child(1)').text(),
 		classCredit : $(this).children(':nth-child(4)').text()
 	}
 	filling(selected, 0);
@@ -213,7 +212,7 @@ $(document).on('click', 'span#added', function(e) {
 	var selected = {
 		code : $(this).parent().parent().data('code'),
 		time : $(this).parent().parent().data('link'),
-		className : $(this).parent().parent().children(':nth-child(2)').text(),
+		className : $(this).parent().parent().children(':nth-child(2)').children(':nth-child(1)').text(),
 		classCredit : $(this).parent().parent().children(':nth-child(4)').text()
 	}
 	if(filling(selected, 1)) {
@@ -223,10 +222,8 @@ $(document).on('click', 'span#added', function(e) {
 		for(var i = 0; i < $(cell).length; i++) {
 			if($(cell).eq(i).attr('status') == "tmp") {
 				$(cell).eq(i).parent().remove();	
+			}
 		}
-	}
-	console.log(timetable);
-
 })
 
 
