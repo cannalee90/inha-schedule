@@ -154,7 +154,7 @@ $(window).resize(function() {
 	}
 });
 
-$(document).on('click tab', 'div.addedcell' , function() {
+$(document).on('click touchstart', 'div.addedcell' , function() {
 	var timeArray = $(this).attr('class-time').split(',');
 	for(var i in timeArray) {
 		cur = timeArray[i];
@@ -170,7 +170,7 @@ $(document).on('click tab', 'div.addedcell' , function() {
 });
 
 
-$(document).on('mouseenter', '#search_result > tbody> tr', function() {
+$(document).on('mouseenter touchstart', '#search_result > tbody> tr', function() {
 	var selected = {
 		code : $(this).data('code'),
 		time : $(this).data('link'),
@@ -190,7 +190,7 @@ $(document).on('mouseleave', '#search_result > tbody> tr', function() {
 	}
 });
 
-$(document).on('click tab', '#search_result > tbody> tr', function() {
+$(document).on('click', '#search_result > tbody> tr', function() {
 	var selected = {
 		code : $(this).data('code'),
 		time : $(this).data('link'),
