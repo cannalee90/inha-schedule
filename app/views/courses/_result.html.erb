@@ -1,29 +1,30 @@
 <thead>
 	<tr>
-		<th>학수번호</th>
-		<th>과목명</th>
-		<th>학년</th>
-		<th>학점</th>
-		<th>과목구분</th>
-		<th>시간 및 강의실</th>
-		<th>담당교수</th>
-		<th>평가방식</th>
-		<th>비고</th>
+		<th class = "hidden-sm">학수번호</th>
+		<th class = "hidden-sm">과목명</th>
+		<th class = "hidden-sm">학년</th>
+		<th class = "hidden-sm">학점</th>
+		<th class = "hidden-sm">구분</th>
+		<th class = "hidden-sm">시간 및 강의실</th>
+		<th class = "hidden-sm">교수</th>
+		<th class = "hidden-sm">평가</th>
+		<th class = "hidden-sm">비고</th>
 	</tr>
 </thead>
 <tbody>
 	<%if re.count != 0 %>
 		<%=re.each do |r| %>
 			<tr class = "search_result_tr" data-link="<%=r.time%>" data-code="<%=r.code%>")>
-				<td><%=r.code%></td>
-				<td class = "col-md-2"><span class = "title"><%=r.title%></span></td>
-				<td><%=r.grade%></td>
-				<td><%=r.credit%></td>
-				<td><%=r.class_type[0]%><%=r.class_type[2]%></td>
-				<td><%=r.time%></td>
-				<td><%=r.instructor%></td>
-				<td><%=r.eval[0...2]%></td>
-				<td><%=r.etc%></td>
+				<td class = "hidden-sm"><%=r.code%></td>
+				<td class = "col-md-2 hidden-sm"><span class = "title"><%=r.title%></span></td>
+				<td class = "hidden-sm"><%=r.grade%></td>
+				<td class = "hidden-sm"><%=r.credit%></td>
+				<td class = "hidden-sm"><%=course_type_help(r.class_type)%></td>
+				<td class = "hidden-sm"><%=r.time%></td>
+				<td class = "hidden-sm"><%=r.instructor%></td>
+				<td class = "hidden-sm"><%=course_eval_help(r.eval)%></td>
+				<td class = "hidden-sm"><%=r.etc%></td>
+				<td class = "mobile-info visible-sm visible-xs"><%=mobile_info_help(r)%></td>
 			</tr>
 		<%end%>
 	<%else%>

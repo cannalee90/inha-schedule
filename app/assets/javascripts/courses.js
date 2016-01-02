@@ -198,6 +198,8 @@ $(document).on('click', '#search_result > tbody> tr', function() {
 		}
 	}
 	$(this).children().eq(1).append('<span class = "label rounded-2x label-success" id = "added">추가</span>')
+	$(this).children(':last-child').append('<span class = "label rounded-2x label-success" id = "added">추가</span>')
+	
 		var selected = {
 		code : $(this).data('code'),
 		time : $(this).data('link'),
