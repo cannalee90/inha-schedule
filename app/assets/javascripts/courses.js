@@ -154,7 +154,7 @@ $(window).resize(function() {
 	}
 });
 
-$(document).on('click', 'div.addedcell' , function() {
+$(document).on('click tab', 'div.addedcell' , function() {
 	var timeArray = $(this).attr('class-time').split(',');
 	for(var i in timeArray) {
 		cur = timeArray[i];
@@ -169,20 +169,6 @@ $(document).on('click', 'div.addedcell' , function() {
 	localStorage.removeItem(selectors);
 });
 
-$(document).on('tab', 'div.addedcell' , function() {
-	var timeArray = $(this).attr('class-time').split(',');
-	for(var i in timeArray) {
-		cur = timeArray[i];
-		delete timetable[cur];
-	}
-	var selectors = $(this).attr('class-code');
-	delete codeHash[selectors];
-	delete colorHash[$(this).attr('class-color')];
-	$('div.addedcell[class-code=' + selectors + ']').parent().remove();
-	total_credit = total_credit - parseInt($(this).attr('class-credit'));
-	$('#total_credit').text(total_credit); 	
-	localStorage.removeItem(selectors);
-});
 
 $(document).on('mouseenter', '#search_result > tbody> tr', function() {
 	var selected = {
@@ -204,7 +190,7 @@ $(document).on('mouseleave', '#search_result > tbody> tr', function() {
 	}
 });
 
-$(document).on('click', '#search_result > tbody> tr', function() {
+$(document).on('click tab', '#search_result > tbody> tr', function() {
 	var selected = {
 		code : $(this).data('code'),
 		time : $(this).data('link'),
@@ -216,17 +202,6 @@ $(document).on('click', '#search_result > tbody> tr', function() {
 	} 
 })
 
-$(document).on('tab', '#search_result > tbody> tr', function() {
-	var selected = {
-		code : $(this).data('code'),
-		time : $(this).data('link'),
-		className : $(this).children(':nth-child(2)').text(),
-		classCredit : $(this).children(':nth-child(4)').text()
-	}
-	if(filling(selected, 1)) {
-		localStorage.setItem(selected['code'], JSON.stringify(selected));
-	} 
-})
 
 $(document).ready(function() {
 	for(var key in window.localStorage){

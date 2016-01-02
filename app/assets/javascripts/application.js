@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.mobile
 //= require_self
 //= require_tree ../unify-1.8/js
 //= require bootstrap
