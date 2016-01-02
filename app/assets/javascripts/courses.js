@@ -70,12 +70,10 @@ function filling(selected, status) {
 			flag = 1;
 		}
 		if((cur == ',' || cur ==  '(')){
-			if(status == 1) {
-				overlapped = isOverlapped(idx, parseInt(num));
-				if(overlapped == true) {
-					alert("시간표가 겹칩니다");
-					return false;
-				}	
+			overlapped = (overlapped == false) ? isOverlapped(idx, parseInt(num)) : true;
+			if(overlapped == true && status == 1) {
+				alert("시간표가 겹칩니다");
+				return false;
 			}
 			if(flag == 1) {
 				begins[idx] = parseInt(num) - 1;
@@ -122,6 +120,12 @@ function filling(selected, status) {
 			cur = $(cur).find('.inner');
 			$(cur).append(code + '<br>');
 			$(cur).append(className);
+			console.log(overlapped);
+				
+			if(overlapped == true) {
+				$(cur).text("");
+				$(cur).text("겹침 ㅠ_ㅠ");	
+			}
 			if(status == 1) {
 				for(var j = 1; j <= classes[i]; j++) {
 					timetable[getIdx(i, parseInt(begins[i]) + j)] = 1;
@@ -133,7 +137,6 @@ function filling(selected, status) {
 	if(status == 1){
 		total_credit = parseInt(selected["classCredit"]) + total_credit;
 		$('#total_credit').text(total_credit);
-
 	}
 	return true;
 }
