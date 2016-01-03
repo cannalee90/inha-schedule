@@ -6,7 +6,7 @@ var codeHash = new Object();
 var total_credit = 0;
 
 function getIdx(day, time) {
-	return (parseInt(day) * 22) + parseInt(time);
+	return (parseInt(day) * 30) + parseInt(time);
 }
 
 function getColorIdx() {
@@ -18,7 +18,6 @@ function getColorIdx() {
 		}
 	}
 }
-
 function isOverlapped(col, row) {
 	var idx = getIdx(col, row);
 	for(var i in timetable) {
@@ -27,8 +26,6 @@ function isOverlapped(col, row) {
 	}
 	return false;
 }
-
-
 function isDay(days) {
 	if(days == "월")
 		return 0;
@@ -118,9 +115,9 @@ function filling(selected, status) {
 			$(cur).append('<div class = "outer"></div>');
 			$(cur).find('.outer').append('<div class = "inner"></div>');
 			cur = $(cur).find('.inner');
-			$(cur).append(code + '<br>');
-			$(cur).append(className);
-				
+			$(cur).append('<span class = "hidden-xs">' + code + '</span>' + '<br>');
+			$(cur).append('<span class = "hidden-xs">' + className + '<span>');
+			$(cur).append('<span class = "visible-xs small-name">' + className + '</span>');
 			if(overlapped == true) {
 				$(cur).text("");
 				$(cur).text("겹침 ㅠ_ㅠ");	
@@ -139,6 +136,7 @@ function filling(selected, status) {
 	}
 	return true;
 }
+
 $(window).resize(function() {
 	var timeCellWidth = $('#timetable > thead > tr > th').eq(2).outerWidth();
 	$('div.addedcell').css({"width" : timeCellWidth});
@@ -155,6 +153,10 @@ $(window).resize(function() {
 
 $(document).on('click', 'div.addedcell' , function() {
 	var timeArray = $(this).attr('class-time').split(',');
+	if($(this).attr('status') != "tmp") {			
+		total_credit = total_credit - parseInt($(this).attr('class-credit'));
+		$('#total_credit').text(total_credit); 	
+	}	
 	for(var i in timeArray) {
 		cur = timeArray[i];
 		delete timetable[cur];
@@ -163,8 +165,6 @@ $(document).on('click', 'div.addedcell' , function() {
 	delete codeHash[selectors];
 	delete colorHash[$(this).attr('class-color')];
 	$('div.addedcell[class-code=' + selectors + ']').parent().remove();
-	total_credit = total_credit - parseInt($(this).attr('class-credit'));
-	$('#total_credit').text(total_credit); 	
 	localStorage.removeItem(selectors);
 });
 
@@ -178,7 +178,6 @@ $(document).on('click', 'div.addedcell' , function() {
 	}
 	filling(selected, 0)
 });
-
 $(document).on('mouseleave', '#search_result > tbody> tr', function() {
 	var selectors = $(this).data('code');
 	var cell = $('div.addedcell[class-code=' + selectors + ']');
@@ -199,7 +198,6 @@ $(document).on('click', '#search_result > tbody> tr', function() {
 	}
 	$(this).children().eq(1).append('<span class = "label rounded-2x label-success" id = "added">추가</span>')
 	$(this).children(':last-child').append('<span class = "label rounded-2x label-success" id = "added">추가</span>')
-	
 		var selected = {
 		code : $(this).data('code'),
 		time : $(this).data('link'),
@@ -221,13 +219,12 @@ $(document).on('click', 'span#added', function(e) {
 		localStorage.setItem(selected['code'], JSON.stringify(selected));
 	} 
 	var cell = $('div.addedcell');
-		for(var i = 0; i < $(cell).length; i++) {
-			if($(cell).eq(i).attr('status') == "tmp") {
-				$(cell).eq(i).parent().remove();	
-			}
+	for(var i = 0; i < $(cell).length; i++) {
+		if($(cell).eq(i).attr('status') == "tmp") {
+			$(cell).eq(i).parent().remove();	
 		}
+	}
 })
-
 
 $(document).ready(function() {
 	for(var key in window.localStorage){

@@ -23,7 +23,7 @@ module CoursesHelper
 		credit
 	end
 	def mobile_info_help data
-		data.code + "/" + data.title + "/" + grade_type_help(data.grade) + "/" + data.credit.to_s + "학점/" + course_eval_help(data.eval) + "/"+ data.instructor + "/" + data.time
+		"<strong>" + data.title + "-" + data.instructor + "</strong>/" + grade_type_help(data.grade) + "/" + data.credit.to_s + "학점/" + course_eval_help(data.eval) + "/"+ data.code + "/" + data.time
 	end
 
 end

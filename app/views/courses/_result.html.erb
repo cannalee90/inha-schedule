@@ -24,7 +24,7 @@
 				<td class = "hidden-sm"><%=r.instructor%></td>
 				<td class = "hidden-sm"><%=course_eval_help(r.eval)%></td>
 				<td class = "hidden-sm"><%=r.etc%></td>
-				<td class = "mobile-info visible-sm visible-xs"><%=mobile_info_help(r)%></td>
+				<td class = "mobile-info visible-sm visible-xs"><%=raw(mobile_info_help(r))%></td>
 			</tr>
 		<%end%>
 	<%else%>
