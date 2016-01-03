@@ -44,9 +44,12 @@ function isDay(days) {
 function filling(selected, status) {
 	var time = selected['time'];
 	var code = selected['code'];
+	var instructor = selected['instructor'];
+	
 	var classes = new Array(0,0,0,0,0);
 	var begins = new Array(-1, -1, -1, -1, -1);
 	var numbers = new Array();
+	var location = {};
 	var cnt = 0;
 	var idx = -1;
 	var num = "";
@@ -87,9 +90,9 @@ function filling(selected, status) {
 	}	
 	
 	var className = selected['className'];
-	var firstHeight = $('.classes_time').outerHeight();
-	var height = $('#timetable > tbody > tr > td').outerHeight() / 2;
-	var leftMargin = $('.classes_time').outerWidth();
+	var firstHeight = $('#timetable > tbody > tr > td').outerHeight();
+	var height = $('#timetable > tbody > tr > td').outerHeight();
+	var leftMargin = $('#timetable > tbody > tr > td').outerWidth();
 	if(status == 1) {
 		var colorIdx = getColorIdx();
 		codeHash[code] = 1;
@@ -115,8 +118,8 @@ function filling(selected, status) {
 			$(cur).append('<div class = "outer"></div>');
 			$(cur).find('.outer').append('<div class = "inner"></div>');
 			cur = $(cur).find('.inner');
-			$(cur).append('<span class = "hidden-xs">' + code + '</span>' + '<br>');
-			$(cur).append('<span class = "hidden-xs">' + className + '<span>');
+			$(cur).append('<span class = "hidden-xs">' + className + '</span>' + '<br>');
+			$(cur).append('<span class = "hidden-xs">' + instructor + '</span>');
 			$(cur).append('<span class = "visible-xs small-name">' + className + '</span>');
 			if(overlapped == true) {
 				$(cur).text("");
@@ -202,6 +205,7 @@ $(document).on('click', '#search_result > tbody> tr', function() {
 		code : $(this).data('code'),
 		time : $(this).data('link'),
 		className : $(this).children(':nth-child(2)').children(':nth-child(1)').text(),
+		instructor : $(this).children(':nth-child(7)').text(),
 		classCredit : $(this).children(':nth-child(4)').text()
 	}
 	filling(selected, 0);
@@ -212,6 +216,7 @@ $(document).on('click', 'span#added', function(e) {
 	var selected = {
 		code : $(this).parent().parent().data('code'),
 		time : $(this).parent().parent().data('link'),
+		instructor : $(this).parent().parent().children(':nth-child(7)').text(),
 		className : $(this).parent().parent().children(':nth-child(2)').children(':nth-child(1)').text(),
 		classCredit : $(this).parent().parent().children(':nth-child(4)').text()
 	}

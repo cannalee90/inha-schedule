@@ -35,8 +35,8 @@ div.addedcell > div.outer > div.inner {
 div#alltimecellcontainer {	
 }
 
-#timetable> tbody > tr > td > .timecell {
-	font-size: 0.8em;
+#timetable> tbody > tr > td > .timecell, .table-days {
+	font-size: 0.9em;
 }
 
 #search_result > thead > tr > th,  #search_result > tbody > tr > td {
@@ -53,18 +53,18 @@ span#added {
 #timetable > thead > tr > th, #timetable > tbody > tr > td  {
 	text-align : center;
 	height: 20px;
-	padding : 8px;
+	padding : 4px;
 }
 
 
-.classes_time {
-	width : 10%;
-}
 
 .main-selector{
 	z-index: 2;
 }
 
+#timetable > thead > tr > th:first-child {
+	max-width: 76px;
+}
 
 #chat_container {
 	position: fixed;
