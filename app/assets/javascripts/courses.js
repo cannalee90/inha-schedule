@@ -41,57 +41,93 @@ function isDay(days) {
 		return -1;
 }
 
+function window_size() {
+	if($(window).width() < 768) {
+		$('div.addedcell > div.outer > div.inner > span').addClass('small-name');
+	}else {
+		$('div.addedcell > div.outer > div.inner > span').removeClass('small-name');
+	}
+}
+
 function filling(selected, status) {
+	function parser(time) {
+		var ret = {};
+		var classes = new Array(0,0,0,0,0);
+		var begins = new Array(-1, -1, -1, -1, -1);
+		var numbers = new Array();
+		var location = "";
+		var classes_loca = new Array("", "", "", "", "");
+		var cnt = 0;
+		var idx = -1;
+		var num = "";
+		var flag = -1;
+		var loca_flag = false;
+		var reserved = "";
+		var overlapped = false;
+		for(var i = 0; i < time.length; i++) {
+			var tmp = isDay(time[i]);
+			var cur = time[i];
+			if(tmp != -1){
+				idx = tmp;
+				num = "";
+				flag = 1;
+			}
+			if((cur == ',' || cur ==  '(')){
+				overlapped = (overlapped == false) ? isOverlapped(idx, parseInt(num)) : true;
+				if(overlapped == true && status == 1) {
+					alert("시간표가 겹칩니다");
+					return false;
+				}
+				if(flag == 1) {
+					begins[idx] = parseInt(num) - 1;
+					cnt++;
+				}
+				numbers.push(getIdx(idx, num));
+				classes[idx] ++;
+				flag = 0;
+				num = "";
+			}
+			else if(cur >= '0' && cur <= '9'){
+				num = num +  cur;
+			}
+			if(loca_flag == true && cur != ")") {
+				location = location + cur;
+			}
+			else if(cur == ")"){
+				loca_flag = false;
+				classes_loca[idx] = "(" + location + ")";
+				reserved = "(" + location + ")";
+				location = "";
+			}
+			if(cur == "(") {
+				loca_flag = true;
+			}
+		}
+		for(var i = 0; i <5; i++)  {
+			if(begins[i] != -1 && classes_loca[i] == "") {
+				classes_loca[i] =reserved;
+			}
+		}
+		ret['classes'] = classes;
+		ret['begins'] = begins;
+		ret['numbers'] = numbers;
+		ret['overlapped'] = overlapped;
+		ret['classes_loca'] = classes_loca;
+		return ret;
+	}
+	
 	var time = selected['time'];
+	var parsed_data = parser(time);
 	var code = selected['code'];
 	var instructor = selected['instructor'];
-	
-	var classes = new Array(0,0,0,0,0);
-	var begins = new Array(-1, -1, -1, -1, -1);
-	var numbers = new Array();
-	var location = {};
-	var cnt = 0;
-	var idx = -1;
-	var num = "";
-	var flag = -1;
-	var overlapped = false;
-	if(status == 1) {
-		if(codeHash.length > colors.length || total_credit + parseInt(selected['classCredit']) > 18 ) {
-			alert("수업을 더이상 추가할 수 없습니다");
-			return false;
-		}
-	}
-	for(var i = 0; i < time.length; i++) {
-		var tmp = isDay(time[i]);
-		var cur = time[i];
-		if(tmp != -1){
-			idx = tmp;
-			num = "";
-			flag = 1;
-		}
-		if((cur == ',' || cur ==  '(')){
-			overlapped = (overlapped == false) ? isOverlapped(idx, parseInt(num)) : true;
-			if(overlapped == true && status == 1) {
-				alert("시간표가 겹칩니다");
-				return false;
-			}
-			if(flag == 1) {
-				begins[idx] = parseInt(num) - 1;
-				cnt++;
-			}
-			numbers.push(getIdx(idx, num));
-			classes[idx] ++;
-			flag = 0;
-			num = "";
-		}
-		else if(cur >= '0' && cur <= '9'){
-			num = num +  cur;
-		}
-	}	
-	
+	var classes = parsed_data['classes'];
+	var begins = parsed_data['begins'];
+	var numbers = parsed_data['numbers'];
+	var overlapped = parsed_data['overlapped'];	
 	var className = selected['className'];
-	var firstHeight = $('#timetable > tbody > tr > td').outerHeight();
-	var height = $('#timetable > tbody > tr > td').outerHeight();
+	var classes_loca = parsed_data['classes_loca'];
+	var firstHeight = $('#timetable > thead > tr > th').outerHeight();
+	var height = $('#timetable > tbody > tr > td').outerHeight() / 2;
 	var leftMargin = $('#timetable > tbody > tr > td').outerWidth();
 	if(status == 1) {
 		var colorIdx = getColorIdx();
@@ -118,9 +154,9 @@ function filling(selected, status) {
 			$(cur).append('<div class = "outer"></div>');
 			$(cur).find('.outer').append('<div class = "inner"></div>');
 			cur = $(cur).find('.inner');
-			$(cur).append('<span class = "hidden-xs">' + className + '</span>' + '<br>');
+			$(cur).append('<span>' + className + '</span>' + '<br>');
 			$(cur).append('<span class = "hidden-xs">' + instructor + '</span>');
-			$(cur).append('<span class = "visible-xs small-name">' + className + '</span>');
+			$(cur).append('<span>' + classes_loca[i] + '</span>');
 			if(overlapped == true) {
 				$(cur).text("");
 				$(cur).text("겹침 ㅠ_ㅠ");	
@@ -137,6 +173,7 @@ function filling(selected, status) {
 		total_credit = parseInt(selected["classCredit"]) + total_credit;
 		$('#total_credit').text(total_credit);
 	}
+	window_size();
 	return true;
 }
 
@@ -152,6 +189,7 @@ $(window).resize(function() {
 	for(var i = 0; i < 5; i++) {
 		$('div.addedcell[class-day=' + i + ']').css({"left" : partial[i]});	
 	}
+	window_size();
 });
 
 $(document).on('click', 'div.addedcell' , function() {
@@ -171,25 +209,6 @@ $(document).on('click', 'div.addedcell' , function() {
 	localStorage.removeItem(selectors);
 });
 
-
-/*$(document).on('mouseenter', '#search_result > tbody> tr', function() {
-	var selected = {
-		code : $(this).data('code'),
-		time : $(this).data('link'),
-		className : $(this).children(':nth-child(2)').text(),
-		classCredit : $(this).children(':nth-child(4)').text()
-	}
-	filling(selected, 0)
-});
-$(document).on('mouseleave', '#search_result > tbody> tr', function() {
-	var selectors = $(this).data('code');
-	var cell = $('div.addedcell[class-code=' + selectors + ']');
-	for(var i = 0; i < $(cell).length; i++) {
-		if($(cell).eq(i).attr('status') == "tmp") {
-			$(cell).eq(i).parent().remove();	
-		}
-	}
-});*/
 
 $(document).on('click', '#search_result > tbody> tr', function() {
 	$('span#added').remove();
