@@ -176,6 +176,7 @@ function filling(selected, status) {
 		}
 		leftMargin += timeCellWidth;
 	}
+	console.log(timetable);
 	if(status == 1){
 		total_credit = parseInt(selected["classCredit"]) + total_credit;
 		$('#total_credit').text(total_credit);

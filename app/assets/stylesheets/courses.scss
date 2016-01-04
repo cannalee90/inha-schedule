@@ -12,7 +12,7 @@ div.timecellcontainer {
 
 div.addedcell {
   position: relative;
-  text-align: center;
+  text-align: left;
   cursor: pointer;
   display: block;
 //  border-radius: 8px;
@@ -24,6 +24,7 @@ div.addedcell {
 
 div.addedcell > div.outer > div.inner {
 	color: #666;
+	padding: 3px;
 }
 
 .font-white {
