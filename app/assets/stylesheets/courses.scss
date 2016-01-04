@@ -15,7 +15,7 @@ div.addedcell {
   text-align: center;
   cursor: pointer;
   display: block;
-  border-radius: 8px;
+//  border-radius: 8px;
 }
 
 .small-name {
@@ -23,8 +23,17 @@ div.addedcell {
 }
 
 div.addedcell > div.outer > div.inner {
+	color: #666;
+}
+
+.font-white {
 	color: #fff;
-	font-weight : bold;
+	font-weight: bold
+}
+
+em {
+	font-style: normal;
+	color: #737373;
 }
 
 #result_show_wrapper {

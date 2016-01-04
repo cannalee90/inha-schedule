@@ -1,5 +1,4 @@
-var colors = new Array("#96281B","#26C281","#4B77BE","#F1A9A0", "#E08283", "#913D88", "#6BB9F0", "#87D37C", "#EB9532","#1E824C");
-//(OLD BRICK, JUNGLE GREEN, STEEL BLUE, NEW YORK PINK, WAX FLOWER, PLUM, MALIBU, GOSSIP, FIRE BUSH,SALEM)
+var colors = new Array("#89C4F4","#BE90D4","#E08283","#F5D76E", "#D2D7D3", "#C8F7C5", "#E4F1FE", "#C5EFF7", "#A2DED0","#DCC6E0", "#F1A9A0","#FDE3A7", "#ECEECE");
 var timetable = new Object();
 var colorHash = new Object();
 var codeHash = new Object();
@@ -44,8 +43,10 @@ function isDay(days) {
 function window_size() {
 	if($(window).width() < 768) {
 		$('div.addedcell > div.outer > div.inner > span').addClass('small-name');
+		$('#timetable> tbody > tr > td').addClass('small-name');
 	}else {
 		$('div.addedcell > div.outer > div.inner > span').removeClass('small-name');
+		$('#timetable> tbody > tr > td').removeClass('small-name');
 	}
 }
 
@@ -64,7 +65,12 @@ function filling(selected, status) {
 		var loca_flag = false;
 		var reserved = "";
 		var overlapped = false;
-		for(var i = 0; i < time.length; i++) {
+	if(status == 1) {
+		if(codeHash.length > colors.length) {
+			alert("수업을 더이상 추가할 수 없습니다");
+			return false;
+		}
+	}		for(var i = 0; i < time.length; i++) {
 			var tmp = isDay(time[i]);
 			var cur = time[i];
 			if(tmp != -1){
@@ -154,12 +160,12 @@ function filling(selected, status) {
 			$(cur).append('<div class = "outer"></div>');
 			$(cur).find('.outer').append('<div class = "inner"></div>');
 			cur = $(cur).find('.inner');
-			$(cur).append('<span>' + className + '</span>' + '<br>');
-			$(cur).append('<span class = "hidden-xs">' + instructor + '</span>');
-			$(cur).append('<span>' + classes_loca[i] + '</span>');
+			$(cur).append('<span><strong>' + className + '</strong></span>' + '<br>');
+			$(cur).append('<span class = "hidden-xs"><em>' + instructor + '</em></span>');
+			$(cur).append('<span><em>' + classes_loca[i] + '</em></span>');
 			if(overlapped == true) {
 				$(cur).text("");
-				$(cur).text("겹침 ㅠ_ㅠ");	
+				$(cur).append('<span class = "font-white">' + "겹침ㅠ_ㅠ" + '</span>')
 			}
 			if(status == 1) {
 				for(var j = 1; j <= classes[i]; j++) {
