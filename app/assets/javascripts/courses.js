@@ -41,6 +41,7 @@ function isDay(days) {
 }
 
 function window_size() {
+
 	if($(window).width() < 768) {
 		$('div.addedcell > div.outer > div.inner > span').addClass('small-name');
 		$('#timetable> tbody > tr > td').addClass('small-name');
@@ -185,6 +186,7 @@ function filling(selected, status) {
 
 $(window).resize(function() {
 	var timeCellWidth = $('#timetable > thead > tr > th').eq(2).outerWidth();
+	$('#timetable > thead > tr > th').css({"width" : timeCellWidth});
 	$('div.addedcell').css({"width" : timeCellWidth});
 	var table_data = $('#timetable > thead > tr > th');
 	var partial = new Array(6);
@@ -200,19 +202,22 @@ $(window).resize(function() {
 
 $(document).on('click', 'div.addedcell' , function() {
 	var timeArray = $(this).attr('class-time').split(',');
-	if($(this).attr('status') != "tmp") {			
+	var selectors = $(this).attr('class-code');
+	
+	if($(this).attr('status') == "tmp") {			
+		$('div.addedcell[class-code=' + selectors + '][status=tmp]').parent().remove();
+	}	else {
 		total_credit = total_credit - parseInt($(this).attr('class-credit'));
 		$('#total_credit').text(total_credit); 	
-	}	
-	for(var i in timeArray) {
-		cur = timeArray[i];
-		delete timetable[cur];
+		for(var i in timeArray) {
+			cur = timeArray[i];
+			delete timetable[cur];
+		}
+		delete codeHash[selectors];
+		delete colorHash[$(this).attr('class-color')];
+		$('div.addedcell[class-code=' + selectors + ']').parent().remove();
+		localStorage.removeItem(selectors);
 	}
-	var selectors = $(this).attr('class-code');
-	delete codeHash[selectors];
-	delete colorHash[$(this).attr('class-color')];
-	$('div.addedcell[class-code=' + selectors + ']').parent().remove();
-	localStorage.removeItem(selectors);
 });
 
 
@@ -226,7 +231,8 @@ $(document).on('click', '#search_result > tbody> tr', function() {
 	}
 	$(this).children().eq(1).append('<span class = "label rounded-2x label-success" id = "added">추가</span>')
 	$(this).children(':last-child').append('<span class = "label rounded-2x label-success" id = "added">추가</span>')
-		var selected = {
+
+	var selected = {
 		code : $(this).data('code'),
 		time : $(this).data('link'),
 		className : $(this).children(':nth-child(2)').children(':nth-child(1)').text(),
