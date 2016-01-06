@@ -20,195 +20,110 @@
 
 /*Top Bar v3 (currency, language, account etc.)
 ------------------------------------*/
-.topbar-v3 {
-	z-index: 99;
-	padding: 3px 0;
-	position: relative;
-	background: #2a2a2a;
-}
-
-@media (max-width: 768px) {
-    .topbar-v3 .left-topbar,
-    .topbar-v3 .right-topbar {
-        text-align: center;
-        float: none !important;
-    }
-}
-
-/*Left Top Bar*/
-.topbar-v3 ul.left-topbar {
-	padding-left: 0;
-	margin-bottom: 1px;
-}
-
-.topbar-v3 ul.left-topbar > li {
-	display: inline;
-	list-style: none;
-	position: relative;
-	margin-right: 15px;
-	padding-bottom: 15px;
-}
-
-.topbar-v3 ul.left-topbar > li > a {
-	color: #fff;
-	font-size: 12px;
-	text-transform: uppercase;
-}
-
-.topbar-v3 ul.left-topbar > li > a:hover {
-	cursor: pointer;
-}
-
-/*Currency & Language*/
-.topbar-v3 ul.currency,
-.topbar-v3 ul.language {
-	top: 28px;
-	left: -5px;
-    z-index: 1;
-	display: none;
-	padding: 4px 0;
-	padding-left: 0; 
-	list-style: none;
-	min-width: 125px;
-	position: absolute;
-	background: #2a2a2a;
-}
-
-@media (max-width: 768px) {
-    .topbar-v3 ul.currency,
-    .topbar-v3 ul.language {
-        top: 20px;
-    }
-}
-
-.topbar-v3 li:hover ul.currency,
-.topbar-v3 li:hover ul.language {
-	display: block;
-}
-
-.topbar-v3 ul.currency:after,
-.topbar-v3 ul.language:after {
-	top: -4px;
-	width: 0; 
-	height: 0;
-	left: 8px;
-	content: " "; 
-	display: block; 
-	position: absolute;
-	border-bottom: 6px solid #2a2a2a;	
-	border-left: 6px solid transparent;
-	border-right: 6px solid transparent;
-	border-left-style: inset; /*FF fixes*/
-	border-right-style: inset; /*FF fixes*/
-}
-
-.topbar-v3 ul.currency li a,
-.topbar-v3 ul.language li a {
-	color: #d1d1d1;
-	display: block;
-	font-size: 10px;
-	padding: 2px 12px;
-	margin-bottom: 1px;
-	text-transform: uppercase; 
-}
-
-.topbar-v3 ul.currency li.active a i,
-.topbar-v3 ul.language li.active a i {
-	color: #d1d1d1;
-	float: right;
-	margin-top: 2px;
-}
-
-.topbar-v3 ul.currency li a:hover, 
-.topbar-v3 ul.language li a:hover, 
-.topbar-v3 ul.currency li.active a,
-.topbar-v3 ul.language li.active a {
-	background: #333;
-}
-
-.topbar-v3 ul.currency li a:hover,
-.topbar-v3 ul.language li a:hover {
-	text-decoration: none; 
-}
-
-/*Right Top Bar*/
-.topbar-v3 .right-topbar {
-	margin-bottom: 1px;
-}
-
-.topbar-v3 .right-topbar li {
-	margin-left: 3px;
-}
-
-.topbar-v3 .right-topbar li:first-child {
-	margin-left: 0;
-}
-
-.topbar-v3 .right-topbar li,
-.topbar-v3 .right-topbar li a {
-	color: #fff;
-	font-size: 12px;
-	text-transform: uppercase;
-}
-
-/*Search*/
-.topbar-v3 .search {
-	color: #fff;
-	cursor: pointer;
-	font-size: 14px;
-	display: inline-block;
-}
-
-.topbar-v3 .search:hover {
-	color: #bbb;
-}
-
-.topbar-v3 .search-open {
-	top: 0;
-    left: 0; 
-	width: 100%;
-	display: none;
-    background: #333;
-}
-
-.topbar-v3 .search-open .container {
+.header .topbar {
+    z-index: 12;
+    padding: 8px 0;
     position: relative;
 }
 
-.topbar-v3 .search-open .search-close {
-    top: 10px;
-    right: 20px;
-    color: #fff;
-    cursor: pointer;
-    position: absolute;
+@media (max-width: 991px) {
+    .header .topbar {
+        margin-bottom: 20px;
+    }
 }
 
-.topbar-v3 .search-open .form-control {
+.header .topbar ul.loginbar {
+    margin: 0;
+}
+
+.header .topbar ul.loginbar > li {
+    display: inline;
+    list-style: none;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.header .topbar ul.loginbar > li > a,
+.header .topbar ul.loginbar > li > a:hover {
+    color: #7c8082;
+    font-size: 11px;
+    text-transform: uppercase;
+}
+
+.header .topbar ul.loginbar li i.fa {
+    color: #bbb;
+}
+
+.header .topbar ul.loginbar li.topbar-devider {
+    top: -1px;
     padding: 0;
-    color: #eee;
-    border: none;
-    min-height: 35px;
-    font-weight: 200;
-    background: #333;
+    font-size: 8px;
+    position: relative;
+    margin: 0 9px 0 5px;
+    font-family: Tahoma;
+    border-right: solid 1px #bbb;
 }
 
-.topbar-v3 .search-open .form-control:focus {
-	box-shadow: none;
+/*languages*/
+.header .topbar ul.languages {
+    top: 25px;
+    left: -5px;
+    display: none;
+    padding: 4px 0;
+    padding-left: 0;
+    list-style: none;
+    min-width: 100px;
+    position: absolute;
+    background: #f0f0f0;
 }
 
-.topbar-v3 .search-open .form-control::-moz-placeholder {
-    color: #eee;
-    font-weight: 200;
-}
-.topbar-v3 .search-open .form-control:-ms-input-placeholder {
-    color: #eee;
-    font-weight: 200;
-}
-.topbar-v3 .search-open .form-control::-webkit-input-placeholder {
-    color: #eee;
-    font-weight: 200;
+.header .topbar li:hover ul.languages {
+    display: block;
 }
 
+.header .topbar ul.languages:after {
+    top: -4px;
+    width: 0;
+    height: 0;
+    left: 8px;
+    content: " ";
+    display: block;
+    position: absolute;
+    border-bottom: 6px solid #f0f0f0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-left-style: inset; /*FF fixes*/
+    border-right-style: inset; /*FF fixes*/
+}
+
+.header .topbar ul.languages li a {
+    color: #555;
+    display: block;
+    font-size: 10px;
+    padding: 2px 12px;
+    margin-bottom: 1px;
+    text-transform: uppercase;
+}
+
+.header .topbar ul.languages li.active a i {
+    color: #999;
+    float: right;
+    margin-top: 2px;
+}
+
+.header .topbar ul.languages li a:hover,
+.header .topbar ul.languages li.active a {
+    background: #fafafa;
+}
+
+.header .topbar ul.languages li a:hover {
+    text-decoration: none;
+}
+
+/*No Topbar*/
+.header.no-topbar .navbar-toggle {
+    margin-top: 25px;
+}
 
 /*--------------------------------------------------
     [2. Header - Shop Badge]
