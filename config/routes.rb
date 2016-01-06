@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
+  
   root 'courses#index'
   resources :posts
   resources :courses do
-
     collection do
       post 'search'
       post 'test'
