@@ -35,8 +35,12 @@
                     </li>
                     
                     <li>
-                        <a>login</a>
+                        <%=link_to "login", new_user_session_path %></a>
                     </li>
+                    <li>
+                        <%=link_to "logout", destroy_user_session_path, method: "delete" %></a>
+                    </li>
+                    
                 </ul>
             </div><!--/navbar-collapse-->
         </div>
