@@ -186,25 +186,27 @@ function filling(selected, status) {
 }
 
 $(window).resize(function() {
-	var timeCellWidth = $('#timetable > thead > tr > th').eq(2).outerWidth();
-	$('#timetable > thead > tr > th').css({"width" : timeCellWidth});
-	$('div.addedcell').css({"width" : timeCellWidth});
-	var table_data = $('#timetable > thead > tr > th');
-	var partial = new Array(6);
-	partial[0] = $(table_data).eq(0).outerWidth();
-	for(var i = 1; i < table_data.length; i++) {
-		partial[i] = partial[i - 1] + $(table_data).eq(i).outerWidth();
-	}
-	for(var i = 0; i < 5; i++) {
-		$('div.addedcell[class-day=' + i + ']').css({"left" : partial[i]});	
-	}
-	window_size();
+	$(document).ready(function() {
+		var timeCellWidth = $('#timetable > thead > tr > th').eq(2).outerWidth();
+		$('#timetable > thead > tr > th').not(':last').not(':first').outerWidth(timeCellWidth);
+		$('#timetable > tbody > tr > td').not(':last').not(':first').outerWidth(timeCellWidth);
+		$('div.addedcell').outerWidth(timeCellWidth);
+		var table_data = $('#timetable > thead > tr > th');
+		var partial = new Array(6);
+		partial[0] = $(table_data).eq(0).outerWidth();
+		for(var i = 1; i < table_data.length; i++) {
+			partial[i] = partial[i - 1] + $(table_data).eq(i).outerWidth();
+		}
+		for(var i = 0; i < 5; i++) {
+			$('div.addedcell[class-day=' + i + ']').css({"left" : partial[i]});	
+		}
+		window_size();
+	});
 });
 
 $(document).on('click', 'div.addedcell' , function() {
 	var timeArray = $(this).attr('class-time').split(',');
 	var selectors = $(this).attr('class-code');
-	
 	if($(this).attr('status') == "tmp") {			
 		$('div.addedcell[class-code=' + selectors + '][status=tmp]').parent().remove();
 	}	else {
