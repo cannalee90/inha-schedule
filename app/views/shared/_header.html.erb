@@ -28,19 +28,11 @@
                         <a>내학점 / <span id = "total_credit">0</span>학점</a>
                     </li>
                     <li>
-                        <a>초기화</a>
+                        <%=link_to "초기화", clear_courses_path, id: "table-clear", remote: 'true'%> 
                     </li>
                     <li>
-                        <a>나의 시간표</a>
-                    </li>
-                    
-                    <li>
-                        <%=link_to "login", new_user_session_path %></a>
-                    </li>
-                    <li>
-                        <%=link_to "logout", destroy_user_session_path, method: "delete" %></a>
-                    </li>
-                    
+                       <%#=link_to "저장하기", sharing_path ,id: "classes-save"%> 
+                    </li>                                        
                 </ul>
             </div><!--/navbar-collapse-->
         </div>

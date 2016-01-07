@@ -1,2 +1,230 @@
-<h1>Courses#show</h1>
-<p>Find me in app/views/courses/show.html.erb</p>
+<div class="container">
+	<div id="content_wrapper" class = "col-md-10 row">
+		<div id = "result_show_wrapper">
+			<div id = "alltimecellcontainer"></div>
+			<table id = "timetable" class = "table table-bordered timetable">
+				<thead>
+					<tr>
+						<th class = "col-md-1 col-sm-1 col-xs-2 classes-time">\</th>
+						<th class = "col-lg-2 col-md-2 col-sm-2 col-xs-2">월</th>
+						<th class = "col-lg-2 col-md-2 col-sm-2 col-xs-2">화</th>
+						<th class = "col-lg-2 col-md-2 col-sm-2 col-xs-2">수</th>
+						<th class = "col-lg-2 col-md-2 col-sm-2 col-xs-2">목</th>
+						<th class = "col-lg-2 col-md-2 col-sm-2 col-xs-2">금</th>
+						<th class = "col-lg-1 col-md-1 col-sm-1 hidden-sm">시간</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class = "timecell" rowspan="2"><span class ="table-days">9<small>AM</small></span></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td class = "hidden-sm" rowspan="2"><span class ="table-days">1<small>교시</small></span></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td class = "timecell" rowspan="2"><span class ="table-days">10<small>AM</small></span></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td class = "hidden-sm" rowspan="2"><span class ="table-days">3교시</span></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td class = "timecell" rowspan="2"><span class ="table-days">11<small>AM</small></span></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td class = "hidden-sm" rowspan="2"><span class ="table-days">5교시</span></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td class = "timecell" rowspan="2"><span class ="table-days">12<small>PM</small></span></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td class = "hidden-sm" rowspan="2"><span class ="table-days">7교시</span></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td class = "timecell" rowspan="2"><span class ="table-days">1<small>PM</small></span></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td class = "hidden-sm" rowspan="2"><span class ="table-days">9교시</span></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td class = "timecell" rowspan="2"><span class ="table-days">2<small>PM</small></span></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td class = "hidden-sm" rowspan="2"><span class ="table-days">11교시</span></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td class = "timecell" rowspan="2"><span class ="table-days">3<small>PM</small></span></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td class = "hidden-sm" rowspan="2"><span class ="table-days">13교시</span></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td class = "timecell" rowspan="2"><span class ="table-days">4<small>PM</small></span></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td class = "hidden-sm" rowspan="2"><span class ="table-days">15교시</span></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>	
+					<tr>
+						<td class = "timecell" rowspan="2"><span class ="table-days">5<small>PM</small></span></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td class = "hidden-sm" rowspan="2"><span class ="table-days">17교시</span></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>		
+					<tr>
+						<td class = "timecell" rowspan="2"><span class ="table-days">6<small>PM</small></span></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td class = "hidden-sm" rowspan="2"><span class ="table-days">19교시</span></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>		
+					<tr>
+						<td class = "timecell" rowspan="2"><span class ="table-days">7<small>PM</small></span></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td class = "hidden-sm" rowspan="2"><span class ="table-days">21교시</span></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>		
+					<tr>
+						<td class = "timecell" rowspan="2"><span class ="table-days">8<small>PM</small></span></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td class = "hidden-sm" rowspan="2"><span class ="table-days">23교시</span></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>		
+					<tr>
+						<td class = "timecell" rowspan="2"><span class ="table-days">9<small>PM</small></span></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td class = "hidden-sm" rowspan="2"><span class ="table-days">25교시</span></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>																																				
+				</tbody>
+			</table>
+		</div><!--end of result_show_wrapper-->
+	</div><!--end of content_wrapper-->
+</div><!--end of container-->

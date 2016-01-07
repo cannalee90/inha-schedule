@@ -44,7 +44,7 @@ function window_size() {
 
 	if($(window).width() < 768) {
 		$('div.addedcell > div.outer > div.inner > span').addClass('small-name');
-		$('#timetable> tbody > tr > td').addClass('small-name');
+		$('#timetable> tbody > tr > td').addClass('small-name  ');
 	}else {
 		$('div.addedcell > div.outer > div.inner > span').removeClass('small-name');
 		$('#timetable> tbody > tr > td').removeClass('small-name');
@@ -66,12 +66,13 @@ function filling(selected, status) {
 		var loca_flag = false;
 		var reserved = "";
 		var overlapped = false;
-	if(status == 1) {
-		if(codeHash.length > colors.length) {
-			alert("수업을 더이상 추가할 수 없습니다");
-			return false;
-		}
-	}		for(var i = 0; i < time.length; i++) {
+		if(status == 1) {
+			if(codeHash.length > colors.length) {
+				alert("수업을 더이상 추가할 수 없습니다");
+				return false;
+			}
+		}		
+		for(var i = 0; i < time.length; i++) {
 			var tmp = isDay(time[i]);
 			var cur = time[i];
 			if(tmp != -1){
@@ -112,7 +113,7 @@ function filling(selected, status) {
 		}
 		for(var i = 0; i <5; i++)  {
 			if(begins[i] != -1 && classes_loca[i] == "") {
-				classes_loca[i] =reserved;
+				classes_loca[i] = reserved;
 			}
 		}
 		ret['classes'] = classes;
@@ -120,6 +121,7 @@ function filling(selected, status) {
 		ret['numbers'] = numbers;
 		ret['overlapped'] = overlapped;
 		ret['classes_loca'] = classes_loca;
+		//console.log(time.match(/(월|화|수|목|금|토)/g))
 		return ret;
 	}
 	

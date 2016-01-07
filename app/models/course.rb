@@ -8,4 +8,7 @@ class Course < ActiveRecord::Base
 	scope :code, -> (param) {
 		where('code LIKE ?', "%" + param + "%")
 	}
+	
+	has_many :selections
+	has_many :schedules, through: :selections	
 end

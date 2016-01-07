@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160106055819) do
+ActiveRecord::Schema.define(version: 20160106161728) do
 
   create_table "courses", force: :cascade do |t|
     t.string   "group",      limit: 255
@@ -34,6 +34,21 @@ ActiveRecord::Schema.define(version: 20160106055819) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "schedules", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "selections", force: :cascade do |t|
+    t.integer  "schedule_id", limit: 4
+    t.integer  "course_id",   limit: 4
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  add_index "selections", ["course_id"], name: "index_selections_on_course_id", using: :btree
+  add_index "selections", ["schedule_id"], name: "index_selections_on_schedule_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false
@@ -62,4 +77,6 @@ ActiveRecord::Schema.define(version: 20160106055819) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true, using: :btree
 
+  add_foreign_key "selections", "courses"
+  add_foreign_key "selections", "schedules"
 end

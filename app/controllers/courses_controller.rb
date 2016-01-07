@@ -14,6 +14,15 @@ class CoursesController < ApplicationController
   def show
   end
 
+  def clear
+    respond_to do |format|
+      format.js {
+        render :template => "/courses/clear.js.erb", 
+               :layout => false
+      }
+    end
+  end
+
   def update  
   end
 

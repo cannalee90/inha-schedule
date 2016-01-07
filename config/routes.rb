@@ -2,12 +2,11 @@ Rails.application.routes.draw do
   
   devise_for :users
   root 'courses#index'
-  resources :posts
+  resources :schedules
   resources :courses do
     collection do
       post 'search'
-      post 'test'
-      get 'local'
+      get 'clear'
     end
   end
   # The priority is based upon order of creation: first created -> highest priority.

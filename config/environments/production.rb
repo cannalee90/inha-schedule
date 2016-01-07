@@ -13,7 +13,13 @@ Rails.application.configure do
   # Full error reports are disabled and caching is turned on.
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
-
+  
+  config.action_mailer.delivery_method = :mailgun
+  config.action_mailer.default_url_options = { host: '52.193.47.201', port: 80 } 
+  config.action_mailer.mailgun_settings = {
+          api_key: 'key-b6e4fbe24bf7c8213ce3cf779b6686d0',
+          domain: 'inhatime.com'
+  }
   # Enable Rack::Cache to put a simple HTTP cache in front of your application
   # Add `rack-cache` to your Gemfile before enabling this.
   # For large-scale production use, consider using a caching reverse proxy like
