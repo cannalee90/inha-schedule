@@ -141,17 +141,6 @@ function test(selected, status){
 			}
 		}
 	}
-	/*수업을 추가 할 수 없는 조건*/
-	if(overlapped == true && status == 1){
-		alert("시간이 겹칩니다 ㅠ_ㅠ");
-		status = 0;
-	}
-//	console.log(colors.length);
-	console.log(localStorage.length);
-	if(colors.length == localStorage.length + 1) {
-		alert("헤르미온느이신가요? ㅠ_ㅠ 더이상은 추가 안되요");
-		status = 0;
-	}
 	/*조건 끝*/
 	if(status == 1) {
 		var colorIdx = getColorIdx();
@@ -221,7 +210,6 @@ function getPartial(table_data) {
 $(window).resize(function() {
 	$(document).ready(function() {
 		window_size();
-
 		var dayofweek = ["월", "화", "수", "목", "금", "토"];
 		var timeCellWidth = $('#timetable > thead > tr > th').eq(2).outerWidth();
 		$('#timetable > thead > tr > th').not(':last').not(':first').outerWidth(timeCellWidth);
@@ -229,102 +217,28 @@ $(window).resize(function() {
 		for(var i = 0; i < 6; i++) {
 			$('div.addedcell[class-day=' + dayofweek[i] + ']').css({"left" : partial[i], "width" : $('#timetable > thead > tr > th').eq(i + 1).outerWidth()});	
 		}
-
 	});
 });
 
-
-$(document).on('click', 'div.addedcell' , function() {
-	var selectors = $(this).attr('class-code');
-	var cells = $('div.addedcell[class-code=' + selectors + ']');
-	if($(this).attr('status') != "tmp") {			
-		total_credit = parseInt($('#total_credit').text()) - parseInt($(this).attr('class-credit'));
-		$('#total_credit').text(total_credit); 	
-		for(var i = 0; i < $(cells).length; i++) {
-			var timeArray = $(cells).eq(i).attr('class-time').split(',');
-			var dayofweek = isDay($(cells).eq(i).attr('class-day'));
-			for(var j = 0; j < timeArray.length; j++) {
-				delete timetable[getIdx(dayofweek, timeArray[j])];
-			}
-		}
-		delete codeHash[selectors.split('-')[0]];
-		delete colorHash[$(this).attr('class-color')];
-		localStorage.removeItem(selectors);
-		$(cells).filter('[stauts!="tmp"]').parent().remove();
-	}else {
-		$(cells).filter('[status="tmp"]').parent().remove();
-	}
-});
-
-
-$(document).on('click', '#search_result > tbody> tr', function() {
-	$('span#added').remove();
-	var cell = $('div.addedcell');
-		for(var i = 0; i < $(cell).length; i++) {
-			if($(cell).eq(i).attr('status') == "tmp") {
-				$(cell).eq(i).parent().remove();	
-		}
-	}
-	$(this).children().eq(1).append('<span class = "label rounded-2x label-success" id = "added">추가</span>')
-	$(this).children(':last-child').append('<span class = "label rounded-2x label-success" id = "added">추가</span>')
-
-	var selected = {
-		code : $(this).data('code'),
-		time : $(this).data('link'),
-		class_id : $(this).data('id'),
-		className : $(this).children(':nth-child(2)').children(':nth-child(1)').text(),
-		instructor : $(this).children(':nth-child(7)').text(),
-		classCredit : $(this).children(':nth-child(4)').text()
-	}
-	test(selected, 0);
-})
-
-$(document).on('click', 'span#added', function(e) {
-	e.stopPropagation();
-	var selected = {
-		code : $(this).parent().parent().data('code'),
-		time : $(this).parent().parent().data('link'),
-		instructor : $(this).parent().parent().children(':nth-child(7)').text(),
-		className : $(this).parent().parent().children(':nth-child(2)').children(':nth-child(1)').text(),
-		classCredit : $(this).parent().parent().children(':nth-child(4)').text(),
-		class_id : $(this).parent().parent().data('id')
-	}
-	if(test(selected, 1) == false) {
-		localStorage.setItem(selected['code'], JSON.stringify(selected));
-		var cell = $('div.addedcell');
-			for(var i = 0; i < $(cell).length; i++) {
-				if($(cell).eq(i).attr('status') == "tmp") {
-					$(cell).eq(i).parent().remove();	
-				}
-			}
-	}
-})
 
 $(document).ready(function() {
-	for(var key in window.localStorage){
-		var selected = JSON.parse(localStorage.getItem(key));
-  	test(selected, 1);
-	}
 	window_size();
+	var data = $('.courses');
+	for(var i = 0; i < data.length; i++) {
+		var selected = {
+			code : $(data).eq(i).data('code'),
+			time : $(data).eq(i).data('time'),
+			instructor : $(data).eq(i).data('instructor'),
+			className : $(data).eq(i).data('classname'),
+			classCredit : $(data).eq(i).data('classcredit')
+		}
+		test(selected, 1);
+	}
 });
 
-$('#class-save').click(function() {
-	var data = new Array();
-	for(var i in localStorage) {
-		data.push(JSON.parse(localStorage[i])['class_id']);
-	}
-	$.ajax({
-		type: "post", 
-		url : "/schedules", 
-		data: {class_id: data},
-		success: function(data, status){
-	  	location.href='/schedules/' + data;  
-	  },
-	 	error: function(e) {
-	 		alert("문제가 발생했습니다. 다시 시도해 주세요");
-	 	}
-	});
-});	
 
-
-
+$('#table-clear').click(function(e) {
+	e.preventDefault();
+  e.stopPropagation();
+	alert("사용하실 수 없습니다");
+});

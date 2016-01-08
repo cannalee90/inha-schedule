@@ -174,7 +174,7 @@
 						<td></td>
 						<td></td>
 						<td></td>
-					</tr>		
+					</tr>	
 					<tr>
 						<td class = "timecell" rowspan="2"><span class ="table-days">7<small>PM</small></span></td>
 						<td></td>
@@ -190,7 +190,7 @@
 						<td></td>
 						<td></td>
 						<td></td>
-					</tr>		
+					</tr>			
 					<tr>
 						<td class = "timecell" rowspan="2"><span class ="table-days">8<small>PM</small></span></td>
 						<td></td>
@@ -206,7 +206,7 @@
 						<td></td>
 						<td></td>
 						<td></td>
-					</tr>		
+					</tr>
 					<tr>
 						<td class = "timecell" rowspan="2"><span class ="table-days">9<small>PM</small></span></td>
 						<td></td>
@@ -222,7 +222,7 @@
 						<td></td>
 						<td></td>
 						<td></td>
-					</tr>																																				
+					</tr>																																																		
 				</tbody>
 			</table>
 		</div><!--end of result_show_wrapper-->
@@ -230,7 +230,6 @@
 			<%=form_tag({controller: "courses", action: "search"}, remote: true,  method: "post") do %>
 				<div class="input-group">
 						<%= select_tag(:query_kind, options_for_select([['과목명', 1], ['교수명', 2], ["학수번호",3]]), class: "selectpicker show-tick main-selector") %>
-
 				 	<%= text_field_tag :query, "", class: 'form-control'%>
 	        <span class="input-group-btn">
 	        	<%= submit_tag "검색", class: 'btn btn-danger'%>

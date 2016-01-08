@@ -1,6 +1,8 @@
 <div class="container">
 	<div id="content_wrapper" class = "col-md-10 row">
 		<div id = "result_show_wrapper">
+			다음 주소로 시간표를 공유할 수 있습니다.</br>
+			<a href = "<%=request.original_url%>"><%=request.original_url%></a>		
 			<div id = "alltimecellcontainer"></div>
 			<table id = "timetable" class = "table table-bordered timetable">
 				<thead>
@@ -174,7 +176,7 @@
 						<td></td>
 						<td></td>
 						<td></td>
-					</tr>		
+					</tr>	
 					<tr>
 						<td class = "timecell" rowspan="2"><span class ="table-days">7<small>PM</small></span></td>
 						<td></td>
@@ -190,7 +192,7 @@
 						<td></td>
 						<td></td>
 						<td></td>
-					</tr>		
+					</tr>			
 					<tr>
 						<td class = "timecell" rowspan="2"><span class ="table-days">8<small>PM</small></span></td>
 						<td></td>
@@ -206,7 +208,7 @@
 						<td></td>
 						<td></td>
 						<td></td>
-					</tr>		
+					</tr>
 					<tr>
 						<td class = "timecell" rowspan="2"><span class ="table-days">9<small>PM</small></span></td>
 						<td></td>
@@ -222,11 +224,14 @@
 						<td></td>
 						<td></td>
 						<td></td>
-					</tr>																																				
+					</tr>																																																		
 				</tbody>
 			</table>
 		</div><!--end of result_show_wrapper-->
 	</div><!--end of content_wrapper-->
 </div><!--end of container-->
+<% @courses.each do |c| %>
+	<%= content_tag "div", class: "courses", display: "hidden", data: {code: c.code, time: c.time, instructor: c.instructor, classname: c.title, classcredit: c.credit } do %>
+	<% end %>
+<% end %>
 <%= javascript_include_tag params[:controller] %>
-
