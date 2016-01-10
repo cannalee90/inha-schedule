@@ -5,6 +5,7 @@ class SchedulesController < ApplicationController
 	
 	def create
 		id = params[:class_id]
+		s = Schedule.new
 		id.each do |d|
 			s.selections.build(course_id: d)
 		end
