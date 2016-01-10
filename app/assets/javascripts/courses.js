@@ -1,4 +1,4 @@
-var colors = new Array("#EAA678","#8585D6","#63C2A2","#89C4F4","#BE90D4","#E08283","#F5D76E", "#D2D7D3", "#C8F7C5", "#E4F1FE", "#C5EFF7", "#A2DED0","#DCC6E0", "#F1A9A0","#FDE3A7", "#ECEECE");
+var colors = new Array("#EAA678","#63C2A2","#89C4F4","#E08283","#F5D76E",  "#C8F7C5", "#E4F1FE", "#C5EFF7", "#A2DED0","#DCC6E0", "#F1A9A0","#FDE3A7", "#ECEECE");
 var timetable = new Object();
 var colorHash = new Object();
 var codeHash = new Object();
