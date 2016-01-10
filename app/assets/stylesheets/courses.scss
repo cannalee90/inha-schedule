@@ -1,14 +1,21 @@
 #result_form_wrapper {
-	margin-top: 10px;
-	height: 150px;
+	margin-top: 5px;
+	height: 140px;
 	overflow: auto;
 	border: none;
+  margin-left: -15px;
+  margin-right: -15px;  
 }
-
 
 div.timecellcontainer {
   position: absolute;
 }
+
+#search_form_wrapper {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+
 
 div.addedcell {
   position: relative;
@@ -85,4 +92,136 @@ span#added {
 
 #class-save{
 	cursor: pointer;
+}
+
+.c-menu {
+  position: fixed;
+  z-index: 200;
+  background-color: #fff;
+  transition: transform 0.3s;
+  padding: 10px
+}
+
+.c-menu__items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/**
+ * Close button resets.
+ */
+.c-menu__close {
+  color: #fff;
+  display: none;
+  background-color: #fff;
+  font-size: 14px;
+  border: none;
+  box-shadow: none;
+  border-radius: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+
+/**
+ * Close button resets.
+ */
+.c-menu__close:focus {
+  outline: none;
+}
+
+/**
+ * Body states.
+ *
+ * When a menu is active, we want to hide the overflows on the body to prevent
+ * awkward document scrolling.
+ */
+body.has-active-menu {
+  overflow: hidden;
+}
+
+/**
+ * Mask component
+ */
+
+.c-mask {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  width: 0;
+  height: 0;
+  background-color: #000;
+  opacity: 0;
+  transition: opacity 0.3s, width 0s 0.3s, height 0s 0.3s;
+}
+
+.c-mask.is-active {
+  width: 100%;
+  height: 100%;
+  opacity: 0.7;
+  transition: opacity 0.3s;
+}
+
+.c-menu--slide-top,
+.c-menu--slide-bottom,
+.c-menu--push-top,
+.c-menu--push-bottom {
+  vertical-align: middle;
+  width: 100%;
+  height: 250px;
+  text-align: center;
+  border-radius: 10px;
+  overflow-x: scroll;
+}
+
+.c-menu--slide-top .c-menu__items,
+.c-menu--slide-bottom .c-menu__items,
+.c-menu--push-top .c-menu__items,
+.c-menu--push-bottom .c-menu__items {
+  display: inline-block;
+  text-align: center;
+}
+
+.c-menu--slide-top .c-menu__item,
+.c-menu--slide-bottom .c-menu__item,
+.c-menu--push-top .c-menu__item,
+.c-menu--push-bottom .c-menu__item {
+  display: inline-block;
+  line-height: 60px;
+}
+
+.c-menu--slide-top .c-menu__link,
+.c-menu--slide-bottom .c-menu__link,
+.c-menu--push-top .c-menu__link,
+.c-menu--push-bottom .c-menu__link {
+  display: block;
+  padding: 0 4px;
+  color: #fff;
+}
+
+.c-menu--slide-top .c-menu__close,
+.c-menu--slide-bottom .c-menu__close,
+.c-menu--push-top .c-menu__close,
+.c-menu--push-bottom .c-menu__close {
+  display: inline-block;
+  margin-right: 12px;
+  padding: 0 24px;
+  height: 250px;
+  line-height: 60px;
+}
+
+.c-menu--slide-bottom,
+.c-menu--push-bottom {
+  bottom: 0;
+  left: 0;
+  transform: translateY(250px);
+}
+
+.c-menu--slide-bottom.is-active,
+.c-menu--push-bottom.is-active {
+  transform: translateY(0);
 }

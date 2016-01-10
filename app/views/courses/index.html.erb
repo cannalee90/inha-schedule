@@ -1,5 +1,5 @@
 <div class="container">
-	<div id="content_wrapper" class = "col-md-10 row">
+	<div id="content_wrapper">
 		<div id = "result_show_wrapper">
 			<div id = "alltimecellcontainer"></div>
 			<table id = "timetable" class = "table table-bordered timetable">
@@ -226,28 +226,54 @@
 				</tbody>
 			</table>
 		</div><!--end of result_show_wrapper-->
-		<div id = "search_form_wrapper">
-			<div class="form-group">		
-				<%= select_tag(:major, options_from_collection_for_select(Major.all, 'id', 'title'),  id: "majorselector", class: "form-control", ) %>
-			</div>
-			<%=form_tag({controller: "courses", action: "search"}, remote: "true", method: "post") do %>
-				<div class="input-group ">
-						<%= select_tag(:query_kind, options_for_select([['과목명', 1], ['교수명', 2], ["학수번호",3]]), class: "selectpicker show-tick main-selector") %>
-				 	<%= text_field_tag :query, "", class: 'form-control'%>
-	        <span class="input-group-btn">
-	        	<%= submit_tag "검색", class: 'btn btn-danger'%>
-	        </span>
-	    	</div>
-     	<%end%>
-		</div>
-		<div id = "result_form_wrapper">
-			<table id = "search_result" class = "table table-bordered">
-				<thead>
-					<tr>
-					</tr>
-				</thead>
-			</table>
-		</div><!--end of result_form_wrapper-->
+		<div id="o-wrapper" class="o-wrapper">
+		  <div class="c-buttons form-group">
+		    <button id="c-button--slide-bottom" class="c-button btn btn-primary form-control">검색</button>
+		  </div>
+		  <!-- other content in here -->
+		</div><!-- /o-wrapper -->
+		<div id="c-mask" class="c-mask"></div><!-- /c-mask -->
+
+
 	</div><!--end of content_wrapper-->
 </div><!--end of container-->
+<div id="c-menu--slide-bottom" class="c-menu c-menu--slide-bottom">
+	<div class = "container">
+	  <div class="menu_form_wrapper">
+			<div id = "search_form_wrapper">
+				<div class="form-group">		
+					<%= select_tag(:major, options_from_collection_for_select(Major.all, 'id', 'title'),  id: "majorselector", class: "form-control" ) %>
+				</div>
+				<%=form_tag({controller: "courses", action: "search"}, remote: "true", method: "post") do %>
+					<div class="input-group">
+						<%= select_tag(:query_kind, options_for_select([['과목명', 1], ['교수명', 2], ["학수번호",3]]), class: "selectpicker show-tick main-selector") %>
+					 	<%= text_field_tag :query, "", class: 'form-control'%>
+					<span class="input-group-btn">
+	        	<%= submit_tag "검색", class: 'btn btn-primary'%>
+	        </span>
+		    	</div>
+	     	<%end%>
+			</div>
+			<div id = "result_form_wrapper">
+				<table id = "search_result" class = "table table-bordered">
+					<thead>
+						<tr>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<h3 id = "announce">이상이 발견되면 초기화를 눌러주세요.</br>
+							 2015년 가을 시간표가 검색 가능합니다.</br>
+							 심각한 버그가 발견되면 메일보내주세요!</h3>
+
+						</tr>
+					</tbody>
+				</table>
+			</div><!--end of result_form_wrapper-->		
+  	</div>
+  </div>
+</div>
+
+
+
 <%= javascript_include_tag params[:controller] %>
