@@ -161,6 +161,12 @@ function test(selected, status){
 		if(data[i]['classes_loca'] == "(웹강의)") {
 			continue;
 		}
+		if(data[i]['days'] == '토') {
+			if(status == 0){
+				alert("토요일 수업은 나타나지 않습니다");
+			}
+			continue;
+		}
 		var dayofweek = isDay(data[i]['days']);
 		var timeCellWidth = $('#timetable > thead > tr > th').eq(dayofweek + 1).outerWidth();
 		var partial = getPartial($('#timetable > thead > tr > th'));
@@ -325,6 +331,18 @@ $('#class-save').click(function() {
 	 	}
 	});
 });	
+
+$('#majorselector').change(function() {
+	$.ajax({
+		type: "post", 
+		url : "/courses/test", 
+		data: {major_id: this.options[this.selectedIndex].value},
+	 	error: function(e) {
+	 		alert("다시 시도해 주세요.");
+	 	}
+	});
+});	
+
 
 
 

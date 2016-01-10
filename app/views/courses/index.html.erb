@@ -227,8 +227,11 @@
 			</table>
 		</div><!--end of result_show_wrapper-->
 		<div id = "search_form_wrapper">
-			<%=form_tag({controller: "courses", action: "search"}, remote: true,  method: "post") do %>
-				<div class="input-group">
+			<div class="form-group">		
+				<%= select_tag(:major, options_from_collection_for_select(Major.all, 'id', 'title'),  id: "majorselector", class: "form-control", ) %>
+			</div>
+			<%=form_tag({controller: "courses", action: "search"}, remote: "true", method: "post") do %>
+				<div class="input-group ">
 						<%= select_tag(:query_kind, options_for_select([['과목명', 1], ['교수명', 2], ["학수번호",3]]), class: "selectpicker show-tick main-selector") %>
 				 	<%= text_field_tag :query, "", class: 'form-control'%>
 	        <span class="input-group-btn">

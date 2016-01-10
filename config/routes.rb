@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     collection do
       post 'search'
       get 'clear'
+      post 'test'
     end
   end
   # The priority is based upon order of creation: first created -> highest priority.

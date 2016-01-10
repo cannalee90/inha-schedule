@@ -21,5 +21,8 @@ jQuery(document).ready(function() {
 	$('.selectpicker').selectpicker({
 	  width: 'auto'
 	});
+	$('.selectpickerMajor').selectpicker({
+	  width: 'auto'
+	});
 
 });

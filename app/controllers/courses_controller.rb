@@ -2,17 +2,7 @@ class CoursesController < ApplicationController
   def index
   end
 
-  def create
-  end
 
-  def new
-  end
-
-  def edit
-  end
-
-  def show
-  end
 
   def clear
     respond_to do |format|
@@ -23,11 +13,7 @@ class CoursesController < ApplicationController
     end
   end
 
-  def update  
-  end
 
-  def destroy
-  end
 
   def search
     query = params[:query].strip
@@ -48,7 +34,14 @@ class CoursesController < ApplicationController
     end
   end
 
-  def local
+  def test
+    respond_to do |format|
+        format.js {
+          render :template => "/courses/search.js.erb", 
+                 :layout => false,
+                 :locals => {:re => Major.find(params[:major_id]).courses}
+        }
+    end    
   end
   
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160106161728) do
+ActiveRecord::Schema.define(version: 20160110102051) do
 
   create_table "courses", force: :cascade do |t|
     t.string   "group",      limit: 255
@@ -28,7 +28,24 @@ ActiveRecord::Schema.define(version: 20160106161728) do
     t.datetime "updated_at",             null: false
     t.string   "semester",   limit: 255
     t.integer  "year",       limit: 4
+    t.string   "url",        limit: 255
   end
+
+  create_table "majors", force: :cascade do |t|
+    t.string   "title",      limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "mcategories", force: :cascade do |t|
+    t.integer  "major_id",   limit: 4
+    t.integer  "course_id",  limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "mcategories", ["course_id"], name: "index_mcategories_on_course_id", using: :btree
+  add_index "mcategories", ["major_id"], name: "index_mcategories_on_major_id", using: :btree
 
   create_table "posts", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -77,6 +94,8 @@ ActiveRecord::Schema.define(version: 20160106161728) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true, using: :btree
 
+  add_foreign_key "mcategories", "courses"
+  add_foreign_key "mcategories", "majors"
   add_foreign_key "selections", "courses"
   add_foreign_key "selections", "schedules"
 end

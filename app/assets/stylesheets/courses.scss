@@ -21,6 +21,10 @@ div.addedcell {
 	font-size : 0.8em;
 }
 
+.class-code {
+	font-color: black;
+}
+
 div.addedcell > div.outer > div.inner {
 	color: #666;
 	padding: 3px;
@@ -96,10 +100,6 @@ span#added {
 }
 
 
-
-.main-selector{
-	z-index: 2;
-}
 
 #timetable > thead > tr > th:first-child {
 	max-width: 76px;

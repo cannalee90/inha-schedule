@@ -11,4 +11,7 @@ class Course < ActiveRecord::Base
 	
 	has_many :selections
 	has_many :schedules, through: :selections	
+	
+	has_many :mcategories
+	has_many :courses, through: :mcategories
 end
