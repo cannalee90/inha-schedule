@@ -29,7 +29,7 @@ class CoursesController < ApplicationController
         format.js {
           render :template => "/courses/search.js.erb", 
                  :layout => false,
-                 :locals => {:re => @ret}
+                 :locals => {:re => @ret.where(year: 2015, semester: "fall")} #temporarliy added
         }
     end
   end
@@ -39,7 +39,7 @@ class CoursesController < ApplicationController
         format.js {
           render :template => "/courses/search.js.erb", 
                  :layout => false,
-                 :locals => {:re => Major.find(params[:major_id]).courses}
+                 :locals => {:re => Major.find(params[:major_id]).courses.where(year: 2015, semester: "fall")} #temporarliy added
         }
     end    
   end

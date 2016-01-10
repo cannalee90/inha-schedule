@@ -280,7 +280,9 @@ $(document).on('click', '#search_result > tbody> tr', function() {
 		class_id : $(this).data('id'),
 		className : $(this).children(':nth-child(2)').children(':nth-child(1)').text(),
 		instructor : $(this).children(':nth-child(7)').text(),
-		classCredit : $(this).children(':nth-child(4)').text()
+		classCredit : $(this).children(':nth-child(4)').text(),
+		class_year : $(this).data('year'),
+		class_semester : $(this).data('semester')
 	}
 	test(selected, 0);
 })
@@ -293,7 +295,9 @@ $(document).on('click', 'span#added', function(e) {
 		instructor : $(this).parent().parent().children(':nth-child(7)').text(),
 		className : $(this).parent().parent().children(':nth-child(2)').children(':nth-child(1)').text(),
 		classCredit : $(this).parent().parent().children(':nth-child(4)').text(),
-		class_id : $(this).parent().parent().data('id')
+		class_id : $(this).parent().parent().data('id'),
+		class_year : $(this).data('year'),
+		class_semester : $(this).data('semester')
 	}
 	if(test(selected, 1) == false) {
 		localStorage.setItem(selected['code'], JSON.stringify(selected));
@@ -309,6 +313,8 @@ $(document).on('click', 'span#added', function(e) {
 $(document).ready(function() {
 	for(var key in window.localStorage){
 		var selected = JSON.parse(localStorage.getItem(key));
+		if(selected['class_year'] != 2015 && selected['class_semester'] != fall) //temporarly added
+			continue;
   	test(selected, 1);
 	}
 	window_size();
