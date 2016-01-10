@@ -5,6 +5,8 @@ module CoursesHelper
 			"절평"
 		elsif eval == "상대평가"
 			"상대"
+		elsif eval.nil?
+			""
 		else
 			"P/F"
 		end

@@ -9,7 +9,7 @@ class SchedulesController < ApplicationController
 		id.each do |d|
 			s.selections.build(course_id: d)
 		end
-		if s.save 
+		if s.save
 			render json: s.id
 		end
 	end
