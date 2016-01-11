@@ -26,11 +26,19 @@ class CoursesController < ApplicationController
       @ret = (@ret.count == 0) ? Course.title('%' + query.gsub!(/(.)/){$1.concat('%')}) : @ret
     end
     respond_to do |format|
+
+      if(query.length >= 2)
         format.js {
           render :template => "/courses/search.js.erb", 
                  :layout => false,
                  :locals => {:re => @ret.where(year: 2016, semester: "spring")} #temporarliy added
         }
+      else
+        format.js {
+          render :template => "/courses/letterStrict.js.erb", 
+                 :layout => false          
+        }
+      end
     end
   end
 

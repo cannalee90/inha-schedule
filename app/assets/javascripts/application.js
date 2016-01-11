@@ -25,6 +25,6 @@ jQuery(document).ready(function() {
 	$('.selectpickerMajor').selectpicker({
 	  width: 'auto'
 	});
-
 });
+
  

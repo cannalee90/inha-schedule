@@ -256,6 +256,9 @@ $(document).on('click', 'div.addedcell' , function() {
 			for(var j = 0; j < timeArray.length; j++) {
 				delete timetable[getIdx(dayofweek, timeArray[j])];
 			}
+			//if($('div.addedcell[status=tmp]') != null) {
+				
+			//}
 		}
 		delete codeHash[selectors.split('-')[0]];
 		delete colorHash[$(this).attr('class-color')];
@@ -325,6 +328,10 @@ $(document).ready(function() {
 
 $('#class-save').click(function() {
 	var data = new Array();
+	if(localStorage.length == 0) {
+		alert("1개이상 수업을 선택해주세요");
+		return false;
+	}
 	for(var i in localStorage) {
 		data.push(JSON.parse(localStorage[i])['class_id']);
 	}
