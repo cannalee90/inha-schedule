@@ -322,7 +322,7 @@ $(document).ready(function() {
 		var selected = JSON.parse(localStorage.getItem(key));
   	test(selected, 1);
 	}
-	$('#result_form_wrapper').outerHeight($("#c-menu--slide-bottom").height() - $("#search_form_wrapper").outerHeight() - 15);
+	$('#result_form_wrapper').outerHeight($("#c-menu--slide-bottom").height() - $("#search_form_wrapper").outerHeight());
 	window_size();
 });
 
