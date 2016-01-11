@@ -239,8 +239,7 @@
 </div><!--end of container-->
 <div id="c-menu--slide-bottom" class="c-menu c-menu--slide-bottom">
 	<div class = "container">
-	  <div class="menu_form_wrapper">
-			<div id = "search_form_wrapper">
+	  	<div id = "search_form_wrapper">
 				<div class="form-group">		
 					<%= select_tag(:major, options_from_collection_for_select(Major.all, 'id', 'title'),  id: "majorselector", class: "form-control" ) %>
 				</div>
@@ -269,7 +268,6 @@
 					</tbody>
 				</table>
 			</div><!--end of result_form_wrapper-->		
-  	</div>
   </div>
 </div>
 

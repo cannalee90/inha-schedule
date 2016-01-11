@@ -1,21 +1,18 @@
+
 #result_form_wrapper {
 	margin-top: 10px;
 	height: 170px;
 	overflow: auto;
 	border: none;
-  margin-left: -15px;
-  margin-right: -15px;  
 }
+
 
 
 div.timecellcontainer {
   position: absolute;
 }
 
-#search_form_wrapper {
-  margin-left: -15px;
-  margin-right: -15px;
-}
+
 
 
 div.addedcell {
@@ -112,7 +109,6 @@ span#added {
   z-index: 200;
   background-color: #fff;
   transition: transform 0.3s;
-  padding: 10px
 }
 
 .c-menu__items {

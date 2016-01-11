@@ -494,7 +494,7 @@ var slideBottomBtn = document.querySelector('#c-button--slide-bottom');
 slideBottomBtn.addEventListener('click', function(e) {
   e.preventDefault;
   $('#footer-v7').append("<div id = 'forscroll'></div>");
-  $('#forscroll').outerHeight($('#result_form_wrapper').outerHeight() - 80);
+  $('#forscroll').outerHeight($('#result_form_wrapper').outerHeight() - 110);
   slideBottom.open();
 });
 
