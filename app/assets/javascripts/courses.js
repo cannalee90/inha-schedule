@@ -60,8 +60,7 @@ function window_size() {
 		$('div.addedcell > div.outer > div.inner').removeClass('small-name');
 		$('#timetable> tbody > tr > td').removeClass('small-name');
 	}
-	$('#result_form_wrapper').outerHeight($("#c-menu--slide-bottom").height() - $("#search_form_wrapper").outerHeight() - 15);
-  
+ 
 }
 
 function test(selected, status){
@@ -317,6 +316,7 @@ $(document).ready(function() {
 		var selected = JSON.parse(localStorage.getItem(key));
   	test(selected, 1);
 	}
+	$('#result_form_wrapper').outerHeight($("#c-menu--slide-bottom").height() - $("#search_form_wrapper").outerHeight() - 15);
 	window_size();
 });
 
