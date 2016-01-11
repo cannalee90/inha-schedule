@@ -14,6 +14,9 @@
 <tbody>
 	<%if re.count != 0 %>
 		<%=re.each do |r| %>
+			<%if r.time ==  "TBA" %>
+			<% next %>
+			<%end %>
 			<tr class = "search_result_tr" data-link="<%=r.time%>" data-code="<%=r.code%>" data-id = "<%=r.id%>")data-year = "<%=r.year%>" data-semester = "<%=r.semester%>">
 				<%unless r.url.nil?%>
 					<td class = "hidden-sm"><a href = "http://m.inha.ac.kr/<%=r.url%>" target = "_blank" class = "class-code" alt = "강의평가로 접속됩니다."><%=r.code%></a></td>
