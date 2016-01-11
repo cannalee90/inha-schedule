@@ -121,6 +121,9 @@ function test(selected, status){
 		}
 		return data;
 	}
+	if(selected['time'] == 'TBA') {
+		return true;
+	}
 	var time = selected['time'];
 	var instructor = selected['instructor'];
 	var className = selected['className'];
