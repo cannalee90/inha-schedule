@@ -1,6 +1,6 @@
 #result_form_wrapper {
-	margin-top: 5px;
-	height: 140px;
+	margin-top: 10px;
+	height: 170px;
 	overflow: auto;
 	border: none;
   margin-left: -15px;
@@ -55,14 +55,23 @@ em {
 div#alltimecellcontainer {	
 }
 
+
 #timetable> tbody > tr > td > .timecell, .table-days {
 	font-size: 0.9em;
 }
 
 #search_result > thead > tr > th,  #search_result > tbody > tr > td {
-	padding : 6px;
+  padding: 6px;
 	font-size : 9pt;
 	cursor: pointer;
+}
+#search_result {
+  height: 100%; 
+  margin-bottom: 0px;
+} 
+
+#result_form_wrapper {
+  border: 1px solid #ddd;
 }
 
 span#added {
@@ -75,6 +84,9 @@ span#added {
 	padding : 4px;
 }
 
+#timetable {
+  margin-bottom : 10px;
+}
 
 
 #timetable > thead > tr > th:first-child {
@@ -162,7 +174,7 @@ body.has-active-menu {
 .c-mask.is-active {
   width: 100%;
   height: 100%;
-  opacity: 0.7;
+  opacity: 0.3;
   transition: opacity 0.3s;
 }
 
@@ -172,7 +184,7 @@ body.has-active-menu {
 .c-menu--push-bottom {
   vertical-align: middle;
   width: 100%;
-  height: 250px;
+  height: 50%;
   text-align: center;
   border-radius: 10px;
   overflow-x: scroll;
@@ -203,6 +215,8 @@ body.has-active-menu {
   color: #fff;
 }
 
+
+
 .c-menu--slide-top .c-menu__close,
 .c-menu--slide-bottom .c-menu__close,
 .c-menu--push-top .c-menu__close,
@@ -210,7 +224,7 @@ body.has-active-menu {
   display: inline-block;
   margin-right: 12px;
   padding: 0 24px;
-  height: 250px;
+  height: 50%;
   line-height: 60px;
 }
 
@@ -218,7 +232,7 @@ body.has-active-menu {
 .c-menu--push-bottom {
   bottom: 0;
   left: 0;
-  transform: translateY(250px);
+  transform: translateY(100%);
 }
 
 .c-menu--slide-bottom.is-active,

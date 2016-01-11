@@ -60,6 +60,8 @@ function window_size() {
 		$('div.addedcell > div.outer > div.inner').removeClass('small-name');
 		$('#timetable> tbody > tr > td').removeClass('small-name');
 	}
+	$('#result_form_wrapper').outerHeight($("#c-menu--slide-bottom").height() - $("#search_form_wrapper").outerHeight() - 15);
+  
 }
 
 function test(selected, status){
@@ -313,7 +315,6 @@ $(document).on('click', 'span#added', function(e) {
 $(document).ready(function() {
 	for(var key in window.localStorage){
 		var selected = JSON.parse(localStorage.getItem(key));
-
   	test(selected, 1);
 	}
 	window_size();

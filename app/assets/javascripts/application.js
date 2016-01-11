@@ -16,6 +16,7 @@
 //= require_tree ../unify-1.8/js
 //= require bootstrap
 
+
 jQuery(document).ready(function() {
   App.init();
 	$('.selectpicker').selectpicker({

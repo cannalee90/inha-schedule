@@ -19,6 +19,7 @@ gem 'therubyracer', platforms: :ruby
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'
+gem 'jquery-ui-rails'
 
 #for login and user admin
 
