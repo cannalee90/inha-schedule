@@ -178,13 +178,13 @@ function test(selected, status){
 		$(cur).attr('class-code', code);
 		$(cur).attr('class-day', data[i]['days']);
 		$(cur).attr('class-credit', selected['classCredit']);
-		$(cur).css({'top' : ((data[i]['numbers'][0] - 1) * height) + firstHeight, 'left' : partial[dayofweek], 'width' : timeCellWidth, 'height' : height * data[i]['numbers'].length, background : colors[colorIdx]});
+		$(cur).css({'top' : ((data[i]['numbers'][0] - 1) * height) + firstHeight, 'left' : partial[dayofweek], 'width' : timeCellWidth, 'height' : height * data[i]['numbers'].length, background : colors[colorIdx], 'z-index': '200'});
 		if(status == 1){
 			$(cur).attr('class-color', colorIdx);
 		}
 		else{
 			$(cur).attr('status', 'tmp');
-			$(cur).css({'background' : 'grey', 'opacity' : 0.8, 'z-index' : 200});
+			$(cur).css({'background' : 'grey', 'opacity' : 0.8, 'z-index' : 201});
 		}
 		$(cur).append('<div class = "outer"></div>');
 		$(cur).find('.outer').append('<div class = "inner"></div>');
@@ -411,11 +411,11 @@ $('#majorselector').change(function() {
    * Initialise Menu Events.
    */
   Menu.prototype._initEvents = function() {
-    // Event for clicks on the close button inside the menu.
-    // this.closeBtn.addEventListener('click', function(e) {
-    //   e.preventDefault();
-    //   this.close();
-    // }.bind(this));
+     //Event for clicks on the close button inside the menu.
+  //   this.closeBtn.addEventListener('click', function(e) {
+  //     e.preventDefault();
+  //     this.close();
+   //  }.bind(this));
 
     // Event for clicks on the mask.
     this.mask.addEventListener('click', function(e) {
@@ -444,6 +444,8 @@ $('#majorselector').change(function() {
     this.menu.classList.remove('is-active');
     this.mask.classList.remove('is-active');
     this.enableMenuOpeners();
+    $('#forscroll').remove();
+
   };
 
   /**
@@ -451,7 +453,7 @@ $('#majorselector').change(function() {
    */
   Menu.prototype.disableMenuOpeners = function() {
     each(this.menuOpeners, function(item) {
-      item.disabled = true;
+    	item.disabled = true;
     });
   };
 
@@ -481,6 +483,8 @@ var slideBottomBtn = document.querySelector('#c-button--slide-bottom');
 
 slideBottomBtn.addEventListener('click', function(e) {
   e.preventDefault;
+  $('#footer-v7').append("<div id = 'forscroll'></div>");
+  $('#forscroll').outerHeight($('#result_form_wrapper').outerHeight() - 80);
   slideBottom.open();
 });
 

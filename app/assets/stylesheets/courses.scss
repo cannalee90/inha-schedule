@@ -7,6 +7,7 @@
   margin-right: -15px;  
 }
 
+
 div.timecellcontainer {
   position: absolute;
 }
@@ -159,23 +160,20 @@ body.has-active-menu {
  */
 
 .c-mask {
-  position: fixed;
+  position: absolute;
   z-index: 100;
   top: 0;
   left: 0;
   overflow: hidden;
   width: 0;
   height: 0;
-  background-color: #000;
-  opacity: 0;
-  transition: opacity 0.3s, width 0s 0.3s, height 0s 0.3s;
+
 }
 
 .c-mask.is-active {
   width: 100%;
   height: 100%;
-  opacity: 0.3;
-  transition: opacity 0.3s;
+
 }
 
 .c-menu--slide-top,
