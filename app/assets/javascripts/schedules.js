@@ -62,6 +62,10 @@ function window_size() {
 	}
 }
 
+function isNumber(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
 function test(selected, status){
 	function modified(time) {
 		var numbers = new Array();
@@ -83,6 +87,9 @@ function test(selected, status){
 			var tmp = isDay(time[i]);
 			var cur = time[i];
 			if(tmp != -1 || cur == '$'){
+				if(cur == '$' && isNumber(time[i-1])) {
+					numbers.push(num);
+				}
 				if(numbers.length != 0){
 					data[didx]['numbers'] = numbers;
 				}
