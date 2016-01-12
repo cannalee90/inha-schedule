@@ -52,16 +52,7 @@ function isDay(days) {
 		return -1;
 }
 
-function window_size() {
-	if($(window).width() < 768) {
-		$('div.addedcell > div.outer > div.inner').addClass('small-name');
-		$('#timetable> tbody > tr > td').addClass('small-name');
-	}else {
-		$('div.addedcell > div.outer > div.inner').removeClass('small-name');
-		$('#timetable> tbody > tr > td').removeClass('small-name');
-	}
- 
-}
+
 
 function isNumber(n) {
   return !isNaN(parseFloat(n)) && isFinite(n);
@@ -155,7 +146,6 @@ function test(selected, status){
 	var data = modified(time);
 	var overlapped = false;
 	var isAdded = false;
-	window_size();
 	var firstHeight = $('#timetable > thead > tr > th').outerHeight();
 	var height = $('#timetable > tbody > tr > td').outerHeight() / 2;
 	var leftMargin = $('#timetable > tbody > tr > td').outerWidth();
@@ -240,7 +230,6 @@ function test(selected, status){
 		return true;
 	}
 	
-	window_size();
 	return overlapped;	
 }
 
@@ -255,7 +244,6 @@ function getPartial(table_data) {
 
 $(window).resize(function() {
 	$(document).ready(function() {
-		window_size();
 
 		var dayofweek = ["월", "화", "수", "목", "금", "토"];
 		var timeCellWidth = $('#timetable > thead > tr > th').eq(2).outerWidth();
@@ -297,14 +285,10 @@ $(document).on('click', 'div.addedcell' , function() {
 
 $(document).on('click', '#search_result > tbody> tr', function() {
 	$('span#added').remove();
-	var cell = $('div.addedcell');
-		for(var i = 0; i < $(cell).length; i++) {
-			if($(cell).eq(i).attr('status') == "tmp") {
-				$(cell).eq(i).parent().remove();	
-		}
-	}
-	$(this).children().eq(1).append('<span class = "label rounded-2x label-success" id = "added">추가</span>')
-	$(this).children(':last-child').append('<span class = "label rounded-2x label-success" id = "added">추가</span>')
+	$('div.addedcell[status=tmp]').parent().remove();
+	
+	$(this).children().eq(1).append('<span class = "label label-primary" id = "added">추가</span>')
+	$(this).children(':last-child').append('<span class = "label label-primary" id = "added">추가</span>')
 
 	var selected = {
 		code : $(this).data('code'),
@@ -347,8 +331,8 @@ $(document).ready(function() {
 		var selected = JSON.parse(localStorage.getItem(key));
   	test(selected, 1);
 	}
-	window_size();
 });
+
 
 $('#class-save').click(function() {
 	var data = new Array();
@@ -387,7 +371,7 @@ $('#majorselector').change(function() {
 
   'use strict';
 
-  /**
+  /*
    * Extend Object helper function.
    */
   function extend(a, b) {
