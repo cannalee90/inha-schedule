@@ -1,13 +1,13 @@
 
 /* Portrait tablets and small desktops */
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   div.addedcell > div.outer > div.inner, timetable> tbody > tr > td {
     font-size : 1.1em
   }
 }
 
 /* Landscape phones and portrait tablets */
-@media (max-width: 767px) {
+@media (max-width: 991px) {
   div.addedcell > div.outer > div.inner, timetable> tbody > tr > td {
     font-size : 0.8em
   }
