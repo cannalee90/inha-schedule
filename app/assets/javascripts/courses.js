@@ -63,6 +63,10 @@ function window_size() {
  
 }
 
+function isNumber(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
 function test(selected, status){
 	function modified(time) {
 		var numbers = new Array();
@@ -84,10 +88,12 @@ function test(selected, status){
 			var tmp = isDay(time[i]);
 			var cur = time[i];
 			if(tmp != -1 || cur == '$'){
+				if(cur == '$' && isNumber(time[i-1])) {
+					numbers.push(num);
+				}
 				if(numbers.length != 0){
 					data[didx]['numbers'] = numbers;
 				}
-				idx = tmp;
 				num = "";
 				flag = 1;
 				didx ++;
@@ -151,7 +157,6 @@ function test(selected, status){
 		status = 0;
 	}
 //	console.log(colors.length);
-	console.log(localStorage.length);
 	if(colors.length == localStorage.length + 1) {
 		alert("헤르미온느이신가요? ㅠ_ㅠ 더이상은 추가 안되요");
 		status = 0;
@@ -322,7 +327,7 @@ $(document).ready(function() {
 		var selected = JSON.parse(localStorage.getItem(key));
   	test(selected, 1);
 	}
-	$('#result_form_wrapper').outerHeight($("#c-menu--slide-bottom").height() - $("#search_form_wrapper").outerHeight());
+	$('#result_form_wrapper').outerHeight($("#c-menu--slide-bottom").height() - $("#search_form_wrapper").outerHeight() - 25);
 	window_size();
 });
 
@@ -494,7 +499,7 @@ var slideBottomBtn = document.querySelector('#c-button--slide-bottom');
 slideBottomBtn.addEventListener('click', function(e) {
   e.preventDefault;
   $('#footer-v7').append("<div id = 'forscroll'></div>");
-  $('#forscroll').outerHeight($('#result_form_wrapper').outerHeight() - 110);
+  $('#forscroll').outerHeight($('#result_form_wrapper').outerHeight() - 90);
   slideBottom.open();
 });
 
