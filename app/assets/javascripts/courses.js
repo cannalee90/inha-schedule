@@ -125,6 +125,24 @@ function test(selected, status){
 				data[i]['classes_loca'] = reserved;
 			}
 		}
+		//점심시간 껴있는 시간표 개극혐 시팍
+		for(var i = 0; i < didx; i++)  {
+			for(var j = 1; j < data[i]['numbers'].length; j++) {
+				if(parseInt(data[i]['numbers'][j - 1]) + 1 != parseInt(data[i]['numbers'][j])) {
+					
+					data[didx] = new Array();
+					data[didx]['days'] = data[i]['days'];
+					data[didx]['classes_loca'] = data[i]['classes_loca'];
+					data[didx]['numbers'] = data[i]['numbers'].slice(j, data[i]['numbers'].length);
+					data[didx]['']
+					 while(data[i]['numbers'].length > j) {
+					 	data[i]['numbers'].pop();
+					 }
+					didx++;	
+				}
+			}
+		}
+
 		return data;
 	}
 	if(selected['time'] == 'TBA') {
@@ -146,11 +164,13 @@ function test(selected, status){
 		for(var j = 0; j < data[i]['numbers'].length; j++){
 			var dayofweek = isDay(data[i]['days']);
 			if(isOver(dayofweek, data[i]['numbers'][j])) {
+
 				overlapped = true;
 				break;
 			}
 		}
 	}
+
 	/*수업을 추가 할 수 없는 조건*/
 	if(overlapped == true && status == 1){
 		alert("시간이 겹칩니다 ㅠ_ㅠ");
@@ -327,7 +347,6 @@ $(document).ready(function() {
 		var selected = JSON.parse(localStorage.getItem(key));
   	test(selected, 1);
 	}
-	$('#result_form_wrapper').outerHeight($("#c-menu--slide-bottom").height() - $("#search_form_wrapper").outerHeight() - 25);
 	window_size();
 });
 
@@ -498,6 +517,7 @@ var slideBottomBtn = document.querySelector('#c-button--slide-bottom');
 
 slideBottomBtn.addEventListener('click', function(e) {
   e.preventDefault;
+  $('#result_form_wrapper').outerHeight($("#c-menu--slide-bottom").height() - $("#search_form_wrapper").outerHeight() - 25);
   $('#footer-v7').append("<div id = 'forscroll'></div>");
   $('#forscroll').outerHeight($('#result_form_wrapper').outerHeight() - 90);
   slideBottom.open();
