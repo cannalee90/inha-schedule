@@ -7,7 +7,7 @@ class CoursesController < ApplicationController
   def clear
     respond_to do |format|
       format.js {
-        render :template => "/courses/clear.js.erb", 
+        render :template => "/courses/clear.js.erb",
                :layout => false
       }
     end
@@ -29,14 +29,14 @@ class CoursesController < ApplicationController
 
       if(query.length >= 2)
         format.js {
-          render :template => "/courses/search.js.erb", 
+          render :template => "/courses/search.js.erb",
                  :layout => false,
-                 :locals => {:re => @ret.where(year: 2016, semester: "spring")} #temporarliy added
+                 :locals => {:re => @ret} #temporarliy added
         }
       else
         format.js {
-          render :template => "/courses/letterStrict.js.erb", 
-                 :layout => false          
+          render :template => "/courses/letterStrict.js.erb",
+                 :layout => false
         }
       end
     end
@@ -45,11 +45,11 @@ class CoursesController < ApplicationController
   def test
     respond_to do |format|
         format.js {
-          render :template => "/courses/search.js.erb", 
+          render :template => "/courses/search.js.erb",
                  :layout => false,
                  :locals => {:re => Major.find(params[:major_id]).courses.where(year: 2016, semester: "spring")} #temporarliy added
         }
-    end    
+    end
   end
-  
+
 end
