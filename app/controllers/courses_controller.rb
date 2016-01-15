@@ -47,7 +47,7 @@ class CoursesController < ApplicationController
         format.js {
           render :template => "/courses/search.js.erb",
                  :layout => false,
-                 :locals => {:re => Major.find(params[:major_id]).courses.where(year: 2016, semester: "spring")} #temporarliy added
+                 :locals => {:re => Major.find(params[:major_id]).courses.where(year: 2016, semester: "spring", visible: true)} #temporarliy added
         }
     end
   end
