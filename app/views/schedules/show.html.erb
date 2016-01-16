@@ -1,8 +1,9 @@
 <div class="container">
-	<div id="content_wrapper" class = "col-md-10 row">
+	<div id="content_wrapper" class = "col-md-12">
 		<div id = "result_show_wrapper">
 			다음 주소로 시간표를 공유할 수 있습니다.</br>
-			<a href = "<%=request.original_url%>"><%=request.original_url%></a>		
+			<div id="fb-root"></div>
+			<a href = "<%=request.original_url%>"><%=request.original_url%></a>
 			<div id = "alltimecellcontainer"></div>
 			<table id = "timetable" class = "table table-bordered timetable">
 				<thead>
@@ -144,7 +145,7 @@
 						<td></td>
 						<td></td>
 						<td></td>
-					</tr>	
+					</tr>
 					<tr>
 						<td class = "timecell" rowspan="2"><span class ="table-days">5<small>PM</small></span></td>
 						<td></td>
@@ -160,7 +161,7 @@
 						<td></td>
 						<td></td>
 						<td></td>
-					</tr>		
+					</tr>
 					<tr>
 						<td class = "timecell" rowspan="2"><span class ="table-days">6<small>PM</small></span></td>
 						<td></td>
@@ -176,7 +177,7 @@
 						<td></td>
 						<td></td>
 						<td></td>
-					</tr>	
+					</tr>
 					<tr>
 						<td class = "timecell" rowspan="2"><span class ="table-days">7<small>PM</small></span></td>
 						<td></td>
@@ -192,7 +193,7 @@
 						<td></td>
 						<td></td>
 						<td></td>
-					</tr>			
+					</tr>
 					<tr>
 						<td class = "timecell" rowspan="2"><span class ="table-days">8<small>PM</small></span></td>
 						<td></td>
@@ -225,7 +226,7 @@
 						<td></td>
 						<td></td>
 					</tr>
-          <tr>                                                                             
+          <tr>
           	<td class = "timecell" rowspan="2"><span class ="table-days">10<small>PM</small></span></td>
                   <td></td>
                   <td></td>
@@ -240,7 +241,7 @@
              <td></td>
              <td></td>
              <td></td>
-          </tr>																																																	
+          </tr>
 				</tbody>
 			</table>
 		</div><!--end of result_show_wrapper-->

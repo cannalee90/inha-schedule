@@ -24,8 +24,8 @@ function getColorIdx() {
 	}
 }
 
-function isOver(dayofweek, numbers) {	
-	var idx = getIdx(dayofweek, numbers);	
+function isOver(dayofweek, numbers) {
+	var idx = getIdx(dayofweek, numbers);
 	if(timetable[idx] == 1) {
 		return true;
 	}
@@ -48,7 +48,7 @@ function isDay(days) {
 		return 5;
 	else if(days == "셀")
 		return 6;
-	else 
+	else
 		return -1;
 }
 
@@ -200,9 +200,9 @@ function test(selected, status){
 		alert("웹강은 추가 할 수 없습니다");
 		return true;
 	}
-	
+
 	window_size();
-	return overlapped;	
+	return overlapped;
 }
 
 function getPartial(table_data) {
@@ -222,7 +222,7 @@ $(window).resize(function() {
 		$('#timetable > thead > tr > th').not(':last').not(':first').outerWidth(timeCellWidth);
 		var partial = getPartial($('#timetable > thead > tr > th'));
 		for(var i = 0; i < 6; i++) {
-			$('div.addedcell[class-day=' + dayofweek[i] + ']').css({"left" : partial[i], "width" : $('#timetable > thead > tr > th').eq(i + 1).outerWidth()});	
+			$('div.addedcell[class-day=' + dayofweek[i] + ']').css({"left" : partial[i], "width" : $('#timetable > thead > tr > th').eq(i + 1).outerWidth()});
 		}
 	});
 });
@@ -248,4 +248,13 @@ $('#table-clear').click(function(e) {
 	e.preventDefault();
   e.stopPropagation();
 	alert("사용하실 수 없습니다");
+});
+
+
+$('#share_button').click(function(e){
+	e.preventDefault();
+	FB.ui({
+	  method: 'share',
+	  href: 'http://inhatime.com',
+	}, function(response){});
 });

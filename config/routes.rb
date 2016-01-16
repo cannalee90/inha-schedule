@@ -1,8 +1,12 @@
 Rails.application.routes.draw do
-  
+
   devise_for :users
   root 'courses#index'
-  resources :schedules
+  resources :schedules do
+    member do
+      get 'test'
+    end
+  end
   resources :courses do
     collection do
       post 'search'
