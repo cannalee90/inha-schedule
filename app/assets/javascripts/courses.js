@@ -24,8 +24,8 @@ function getColorIdx() {
 	}
 }
 
-function isOver(dayofweek, numbers) {	
-	var idx = getIdx(dayofweek, numbers);	
+function isOver(dayofweek, numbers) {
+	var idx = getIdx(dayofweek, numbers);
 	if(timetable[idx] == 1) {
 		return true;
 	}
@@ -48,7 +48,7 @@ function isDay(days) {
 		return 5;
 	else if(days == "셀")
 		return 6;
-	else 
+	else
 		return -1;
 }
 
@@ -120,7 +120,7 @@ function test(selected, status){
 		for(var i = 0; i < didx; i++)  {
 			for(var j = 1; j < data[i]['numbers'].length; j++) {
 				if(parseInt(data[i]['numbers'][j - 1]) + 1 != parseInt(data[i]['numbers'][j])) {
-					
+
 					data[didx] = new Array();
 					data[didx]['days'] = data[i]['days'];
 					data[didx]['classes_loca'] = data[i]['classes_loca'];
@@ -129,7 +129,7 @@ function test(selected, status){
 					 while(data[i]['numbers'].length > j) {
 					 	data[i]['numbers'].pop();
 					 }
-					didx++;	
+					didx++;
 				}
 			}
 		}
@@ -229,8 +229,8 @@ function test(selected, status){
 		alert("웹강은 추가 할 수 없습니다");
 		return true;
 	}
-	
-	return overlapped;	
+
+	return overlapped;
 }
 
 function getPartial(table_data) {
@@ -250,7 +250,7 @@ $(window).resize(function() {
 		$('#timetable > thead > tr > th').not(':last').not(':first').outerWidth(timeCellWidth);
 		var partial = getPartial($('#timetable > thead > tr > th'));
 		for(var i = 0; i < 6; i++) {
-			$('div.addedcell[class-day=' + dayofweek[i] + ']').css({"left" : partial[i], "width" : $('#timetable > thead > tr > th').eq(i + 1).outerWidth()});	
+			$('div.addedcell[class-day=' + dayofweek[i] + ']').css({"left" : partial[i], "width" : $('#timetable > thead > tr > th').eq(i + 1).outerWidth()});
 		}
 
 	});
@@ -260,9 +260,9 @@ $(window).resize(function() {
 $(document).on('click', 'div.addedcell' , function() {
 	var selectors = $(this).attr('class-code');
 	var cells = $('div.addedcell[class-code=' + selectors + ']');
-	if($(this).attr('status') != "tmp") {			
+	if($(this).attr('status') != "tmp") {
 		total_credit = parseInt($('#total_credit').text()) - parseInt($(this).attr('class-credit'));
-		$('#total_credit').text(total_credit); 	
+		$('#total_credit').text(total_credit);
 		for(var i = 0; i < $(cells).length; i++) {
 			var timeArray = $(cells).eq(i).attr('class-time').split(',');
 			var dayofweek = isDay($(cells).eq(i).attr('class-day'));
@@ -270,7 +270,7 @@ $(document).on('click', 'div.addedcell' , function() {
 				delete timetable[getIdx(dayofweek, timeArray[j])];
 			}
 			//if($('div.addedcell[status=tmp]') != null) {
-				
+
 			//}
 		}
 		delete codeHash[selectors.split('-')[0]];
@@ -286,7 +286,7 @@ $(document).on('click', 'div.addedcell' , function() {
 $(document).on('click', '#search_result > tbody> tr', function() {
 	$('span#added').remove();
 	$('div.addedcell[status=tmp]').parent().remove();
-	
+
 	$(this).children().eq(1).append('<span class = "label label-primary" id = "added">추가</span>')
 	$(this).children(':last-child').append('<span class = "label label-primary" id = "added">추가</span>')
 
@@ -320,7 +320,7 @@ $(document).on('click', 'span#added', function(e) {
 		var cell = $('div.addedcell');
 			for(var i = 0; i < $(cell).length; i++) {
 				if($(cell).eq(i).attr('status') == "tmp") {
-					$(cell).eq(i).parent().remove();	
+					$(cell).eq(i).parent().remove();
 				}
 			}
 	}
@@ -344,28 +344,28 @@ $('#class-save').click(function() {
 		data.push(JSON.parse(localStorage[i])['class_id']);
 	}
 	$.ajax({
-		type: "post", 
-		url : "/schedules", 
+		type: "post",
+		url : "/schedules",
 		data: {class_id: data},
 		success: function(data, status){
-	  	location.href='/schedules/' + data;  
+	  	location.href='/schedules/' + data;
 	  },
 	 	error: function(e) {
 	 		alert("문제가 발생했습니다. 다시 시도해 주세요");
 	 	}
 	});
-});	
+});
 
 $('#majorselector').change(function() {
 	$.ajax({
-		type: "post", 
-		url : "/courses/test", 
+		type: "post",
+		url : "/courses/test",
 		data: {major_id: this.options[this.selectedIndex].value},
 	 	error: function(e) {
 	 		alert("다시 시도해 주세요.");
 	 	}
 	});
-});	
+});
 
 (function(window) {
 
@@ -375,7 +375,7 @@ $('#majorselector').change(function() {
    * Extend Object helper function.
    */
   function extend(a, b) {
-    for(var key in b) { 
+    for(var key in b) {
       if(b.hasOwnProperty(key)) {
         a[key] = b[key];
       }
@@ -501,14 +501,8 @@ var slideBottomBtn = document.querySelector('#c-button--slide-bottom');
 
 slideBottomBtn.addEventListener('click', function(e) {
   e.preventDefault;
-  $('#result_form_wrapper').outerHeight($("#c-menu--slide-bottom").height() - $("#search_form_wrapper").outerHeight() - 25);
+  $('#result_form_wrapper').outerHeight($("#c-menu--slide-bottom").height() - $("#search_form_wrapper").outerHeight() - 55);
   $('#footer-v7').append("<div id = 'forscroll'></div>");
   $('#forscroll').outerHeight($('#result_form_wrapper').outerHeight() - 90);
   slideBottom.open();
 });
-
-
-
-
-
-
