@@ -506,3 +506,13 @@ slideBottomBtn.addEventListener('click', function(e) {
   $('#forscroll').outerHeight($('#result_form_wrapper').outerHeight() - 90);
   slideBottom.open();
 });
+
+
+
+$('#share_button').click(function(e){
+	e.preventDefault();
+	FB.ui({
+	  method: 'share',
+	  href: window.location.href,
+	}, function(response){});
+});

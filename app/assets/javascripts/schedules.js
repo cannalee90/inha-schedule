@@ -258,3 +258,7 @@ $('#share_button').click(function(e){
 	  href: window.location.href,
 	}, function(response){});
 });
+
+
+
+new Clipboard('#share-url');

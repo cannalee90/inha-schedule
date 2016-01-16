@@ -12,7 +12,7 @@
  *
  *= require_tree .
  *= require_self
- *= require_tree 
+ *= require_tree
  *= require_tree ../unify-1.8/css
  */
 
@@ -21,10 +21,13 @@
  @import "simple-line-icons";
  @import "font-awesome";
  @import url(https://fonts.googleapis.com/earlyaccess/nanumgothic.css);
- 
+
  #content_wrapper {
  	margin-top: 10px;
+ }
 
+ .share-header {
+   font-size: 16pt;
  }
 
 .vcenter {
@@ -48,9 +51,9 @@
   padding: 0.2em;
 
 }
+
+
 a:link {text-decoration: none; color: black; }
 a:visited {text-decoration: none; color: black;}
 a:active {text-decoration: none; color: black; }
 a:hover {text-decoration: underline; color: black !important; background-color: inherit; }
-
-

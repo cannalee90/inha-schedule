@@ -1,13 +1,13 @@
 <div class="container">
 	<div id="content_wrapper" class = "col-md-12">
-		<div id = "result_show_wrapper">
-			다음 주소로 시간표를 공유할 수 있습니다.</br>
-			<div id="fb-root"></div>
-			<a href = "<%=request.original_url%>"><%=request.original_url%></a>
-			<div class = "input-group">
-				<button class = "btn btn-default" id = "share_button">공유하기</button>
-			</div>
+		<div id = "result_show_wrapper">작성된 시간표는 아래의 주소에서 쉽게 열어 볼 수 있습니다.</br>
 
+			<div class = "input-group">
+				<a href = "<%=request.original_url%>"><h5><%=request.original_url%></h5></a>
+			</div>
+			<div class = "input-group">
+				<button class = "btn btn-primary" id = "share_button">Facebook으로 공유하기</button>
+			</div>
 			<div id = "alltimecellcontainer"></div>
 			<table id = "timetable" class = "table table-bordered timetable">
 				<thead>
