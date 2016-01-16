@@ -255,6 +255,6 @@ $('#share_button').click(function(e){
 	e.preventDefault();
 	FB.ui({
 	  method: 'share',
-	  href: 'http://inhatime.com',
+	  href: window.location.href,
 	}, function(response){});
 });
