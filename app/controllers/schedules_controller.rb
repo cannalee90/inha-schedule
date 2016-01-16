@@ -7,6 +7,9 @@ class SchedulesController < ApplicationController
 		@courses = Schedule.find(params[:id]).courses
 	end
 
+	def edit
+		@courses = Schedule.find(params[:id]).courses
+	end
 
 	def create
 		id = params[:class_id]

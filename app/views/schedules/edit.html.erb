@@ -1,15 +1,8 @@
 <div class="container">
-	<div id="content_wrapper" class = "col-md-12">
-		<div id = "result_show_wrapper">작성된 시간표는 아래의 주소에서 쉽게 열어 볼 수 있습니다.</br>
-
-			<div class = "input-group">
-				<a href = "<%=request.original_url%>"><h5><%=request.original_url%></h5></a>
-			</div>
-			<div class = "input-group margin-bottom-10">
-				<button class = "btn btn-primary" id = "share_button">Facebook으로 공유하기</button>
-			</div>
+	<div id="content_wrapper">
+		<div id = "result_show_wrapper">
 			<div id = "alltimecellcontainer"></div>
-			<table id = "timetable" class = "table table-bordered timetable margin-bottom-10">
+			<table id = "timetable" class = "table table-bordered timetable">
 				<thead>
 					<tr>
 						<th class = "col-md-1 col-sm-1 col-xs-2 classes-time">\</th>
@@ -249,14 +242,53 @@
 				</tbody>
 			</table>
 		</div><!--end of result_show_wrapper-->
-		<div class="form-group">
-			<%= button_to "수정하기", edit_schedule_path(Schedule.find(params[:id])), method: "get", class: "btn btn-primary btn-search btn-lg" %>
-		</div>
+		<div id="o-wrapper" class="o-wrapper">
+		  <div class="c-buttons form-group">
+		    <button id="c-button--slide-bottom" class="c-button btn btn-primary btn-search btn-lg">검색</button>
+		  </div>
+		  <!-- other content in here -->
+		</div><!-- /o-wrapper -->
+		<div id="c-mask" class="c-mask"></div><!-- /c-mask -->
+
+
 	</div><!--end of content_wrapper-->
 </div><!--end of container-->
+<div id="c-menu--slide-bottom" class="c-menu c-menu--slide-bottom">
+	<div class = "container">
+	  	<div id = "search_form_wrapper">
+				<div class="form-group">
+					<%= select_tag(:major, options_from_collection_for_select(Major.all, 'id', 'title'),  id: "majorselector", class: "form-control" ) %>
+				</div>
+				<%=form_tag({controller: "courses", action: "search"}, remote: "true", method: "post") do %>
+					<div class="input-group">
+						<%= select_tag(:query_kind, options_for_select([['과목명', 1], ['교수명', 2], ["학수번호",3]]), class: "selectpicker show-tick main-selector") %>
+					 	<%= text_field_tag :query, "", class: 'form-control'%>
+					<span class="input-group-btn">
+	        	<%= submit_tag "검색", class: 'btn btn-primary'%>
+	        </span>
+		    	</div>
+	     	<%end%>
+			</div>
+			<div id = "result_form_wrapper">
+				<table id = "search_result" class = "table table-bordered">
+					<thead>
+						<tr>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<h3 id = "announce">처음 접속시 초기화를 눌러주세요.</br>
+							 2016년 봄 시간표가 검색 가능합니다.</br>
+							 이제 학수번호 혹은 과목명을 누르면 강의계획서 확인이 가능합니다!</h3>
+						</tr>
+					</tbody>
+				</table>
+			</div><!--end of result_form_wrapper-->
+  </div>
+</div>
 <% @courses.each do |c| %>
-	<%= content_tag "div", class: "courses", display: "hidden", data: {classId: c.id, code: c.code, time: c.time, instructor: c.instructor, classname: c.title, classcredit: c.credit } do %>
+	<%= content_tag "div", class: "courses", display: "hidden", data: {classid: c.id, code: c.code, time: c.time, instructor: c.instructor, classname: c.title, classcredit: c.credit } do %>
 	<% end %>
 <% end %>
-
+<%= javascript_include_tag "menu.js" %>
 <%= javascript_include_tag params[:controller] %>

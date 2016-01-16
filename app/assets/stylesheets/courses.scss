@@ -13,7 +13,12 @@
   }
 }
 
-
+#announce  > .list-group > .list-group-item {
+  font-size: 9pt;
+  border: none;
+  text-align: left;
+  padding: 6px;
+}
 
 #result_form_wrapper {
 	margin-top: 10px;

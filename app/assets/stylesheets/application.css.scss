@@ -21,14 +21,14 @@
  @import "simple-line-icons";
  @import "font-awesome";
  @import url(https://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+ body {
+     font-family: "Nanum Gothic", sans-serif;
+ }
 
  #content_wrapper {
  	margin-top: 10px;
  }
 
- .share-header {
-   font-size: 16pt;
- }
 
 .vcenter {
  	display: table-cell;

@@ -1,4 +1,4 @@
-var colors = new Array("#EAA678","#8585D6","#63C2A2","#89C4F4","#BE90D4","#E08283","#F5D76E", "#D2D7D3", "#C8F7C5", "#E4F1FE", "#C5EFF7", "#A2DED0","#DCC6E0", "#F1A9A0","#FDE3A7", "#ECEECE");
+var colors = new Array("#EAA678","#63C2A2","#89C4F4","#E08283","#F5D76E",  "#C8F7C5", "#E4F1FE", "#C5EFF7", "#A2DED0","#DCC6E0", "#F1A9A0","#FDE3A7", "#ECEECE");
 var timetable = new Object();
 var colorHash = new Object();
 var codeHash = new Object();
@@ -52,15 +52,7 @@ function isDay(days) {
 		return -1;
 }
 
-function window_size() {
-	if($(window).width() < 768) {
-		$('div.addedcell > div.outer > div.inner').addClass('small-name');
-		$('#timetable> tbody > tr > td').addClass('small-name');
-	}else {
-		$('div.addedcell > div.outer > div.inner').removeClass('small-name');
-		$('#timetable> tbody > tr > td').removeClass('small-name');
-	}
-}
+
 
 function isNumber(n) {
   return !isNaN(parseFloat(n)) && isFinite(n);
@@ -93,7 +85,6 @@ function test(selected, status){
 				if(numbers.length != 0){
 					data[didx]['numbers'] = numbers;
 				}
-				idx = tmp;
 				num = "";
 				flag = 1;
 				didx ++;
@@ -125,7 +116,28 @@ function test(selected, status){
 				data[i]['classes_loca'] = reserved;
 			}
 		}
+		//점심시간 껴있는 시간표 개극혐 시팍
+		for(var i = 0; i < didx; i++)  {
+			for(var j = 1; j < data[i]['numbers'].length; j++) {
+				if(parseInt(data[i]['numbers'][j - 1]) + 1 != parseInt(data[i]['numbers'][j])) {
+
+					data[didx] = new Array();
+					data[didx]['days'] = data[i]['days'];
+					data[didx]['classes_loca'] = data[i]['classes_loca'];
+					data[didx]['numbers'] = data[i]['numbers'].slice(j, data[i]['numbers'].length);
+					data[didx]['']
+					 while(data[i]['numbers'].length > j) {
+					 	data[i]['numbers'].pop();
+					 }
+					didx++;
+				}
+			}
+		}
+
 		return data;
+	}
+	if(selected['time'] == 'TBA') {
+		return true;
 	}
 	var time = selected['time'];
 	var instructor = selected['instructor'];
@@ -134,19 +146,29 @@ function test(selected, status){
 	var data = modified(time);
 	var overlapped = false;
 	var isAdded = false;
-	window_size();
 	var firstHeight = $('#timetable > thead > tr > th').outerHeight();
 	var height = $('#timetable > tbody > tr > td').outerHeight() / 2;
 	var leftMargin = $('#timetable > tbody > tr > td').outerWidth();
-
 	for(var i = 0; i < data.length; i++) {
 		for(var j = 0; j < data[i]['numbers'].length; j++){
 			var dayofweek = isDay(data[i]['days']);
 			if(isOver(dayofweek, data[i]['numbers'][j])) {
+
 				overlapped = true;
 				break;
 			}
 		}
+	}
+
+	/*수업을 추가 할 수 없는 조건*/
+	if(overlapped == true && status == 1){
+		alert("시간이 겹칩니다 ㅠ_ㅠ");
+		status = 0;
+	}
+//	console.log(colors.length);
+	if(colors.length == localStorage.length + 1) {
+		alert("헤르미온느이신가요? ㅠ_ㅠ 더이상은 추가 안되요");
+		status = 0;
 	}
 	/*조건 끝*/
 	if(status == 1) {
@@ -157,6 +179,12 @@ function test(selected, status){
 		if(data[i]['classes_loca'] == "(웹강의)") {
 			continue;
 		}
+		if(data[i]['days'] == '토') {
+			if(status == 0){
+				alert("토요일 수업은 나타나지 않습니다");
+			}
+			continue;
+		}
 		var dayofweek = isDay(data[i]['days']);
 		var timeCellWidth = $('#timetable > thead > tr > th').eq(dayofweek + 1).outerWidth();
 		var partial = getPartial($('#timetable > thead > tr > th'));
@@ -165,15 +193,16 @@ function test(selected, status){
 		var cur = $('div.timecellcontainer:first > div.addedcell');
 		$(cur).attr('class-time', data[i]['numbers']);
 		$(cur).attr('class-code', code);
+		$(cur).attr('class-id', selected['class_id']);
 		$(cur).attr('class-day', data[i]['days']);
 		$(cur).attr('class-credit', selected['classCredit']);
-		$(cur).css({'top' : ((data[i]['numbers'][0] - 1) * height) + firstHeight, 'left' : partial[dayofweek], 'width' : timeCellWidth, 'height' : height * data[i]['numbers'].length, background : colors[colorIdx]});
+		$(cur).css({'top' : ((data[i]['numbers'][0] - 1) * height) + firstHeight, 'left' : partial[dayofweek], 'width' : timeCellWidth, 'height' : height * data[i]['numbers'].length, background : colors[colorIdx], 'z-index': '200'});
 		if(status == 1){
 			$(cur).attr('class-color', colorIdx);
 		}
 		else{
 			$(cur).attr('status', 'tmp');
-			$(cur).css({'background' : 'grey', 'opacity' : 0.8, 'z-index' : 200});
+			$(cur).css({'background' : 'grey', 'opacity' : 0.8, 'z-index' : 201});
 		}
 		$(cur).append('<div class = "outer"></div>');
 		$(cur).find('.outer').append('<div class = "inner"></div>');
@@ -201,7 +230,6 @@ function test(selected, status){
 		return true;
 	}
 
-	window_size();
 	return overlapped;
 }
 
@@ -216,7 +244,7 @@ function getPartial(table_data) {
 
 $(window).resize(function() {
 	$(document).ready(function() {
-		window_size();
+
 		var dayofweek = ["월", "화", "수", "목", "금", "토"];
 		var timeCellWidth = $('#timetable > thead > tr > th').eq(2).outerWidth();
 		$('#timetable > thead > tr > th').not(':last').not(':first').outerWidth(timeCellWidth);
@@ -224,12 +252,80 @@ $(window).resize(function() {
 		for(var i = 0; i < 6; i++) {
 			$('div.addedcell[class-day=' + dayofweek[i] + ']').css({"left" : partial[i], "width" : $('#timetable > thead > tr > th').eq(i + 1).outerWidth()});
 		}
+
 	});
 });
 
 
+$(document).on('click', 'div.addedcell' , function() {
+	var selectors = $(this).attr('class-code');
+	var cells = $('div.addedcell[class-code=' + selectors + ']');
+	if($(this).attr('status') != "tmp") {
+		total_credit = parseInt($('#total_credit').text()) - parseInt($(this).attr('class-credit'));
+		$('#total_credit').text(total_credit);
+		for(var i = 0; i < $(cells).length; i++) {
+			var timeArray = $(cells).eq(i).attr('class-time').split(',');
+			var dayofweek = isDay($(cells).eq(i).attr('class-day'));
+			for(var j = 0; j < timeArray.length; j++) {
+				delete timetable[getIdx(dayofweek, timeArray[j])];
+			}
+			//if($('div.addedcell[status=tmp]') != null) {
+
+			//}
+		}
+		delete codeHash[selectors.split('-')[0]];
+		delete colorHash[$(this).attr('class-color')];
+		localStorage.removeItem(selectors);
+		$(cells).filter('[stauts!="tmp"]').parent().remove();
+	}else {
+		$(cells).filter('[status="tmp"]').parent().remove();
+	}
+});
+
+
+$(document).on('click', '#search_result > tbody> tr', function() {
+	$('span#added').remove();
+	$('div.addedcell[status=tmp]').parent().remove();
+
+	$(this).children().eq(1).append('<span class = "label label-primary" id = "added">추가</span>')
+	$(this).children(':last-child').append('<span class = "label label-primary" id = "added">추가</span>')
+
+	var selected = {
+		code : $(this).data('code'),
+		time : $(this).data('link'),
+		class_id : $(this).data('id'),
+		className : $(this).children(':nth-child(2)').children(':nth-child(1)').text(),
+		instructor : $(this).children(':nth-child(7)').text(),
+		classCredit : $(this).children(':nth-child(4)').text(),
+		class_year : $(this).data('year'),
+		class_semester : $(this).data('semester')
+	}
+	test(selected, 0);
+})
+
+$(document).on('click', 'span#added', function(e) {
+	e.stopPropagation();
+	var selected = {
+		code : $(this).parent().parent().data('code'),
+		time : $(this).parent().parent().data('link'),
+		instructor : $(this).parent().parent().children(':nth-child(7)').text(),
+		className : $(this).parent().parent().children(':nth-child(2)').children(':nth-child(1)').text(),
+		classCredit : $(this).parent().parent().children(':nth-child(4)').text(),
+		class_id : $(this).parent().parent().data('id'),
+		class_year : $(this).data('year'),
+		class_semester : $(this).data('semester')
+	}
+	if(test(selected, 1) == false) {
+		var cell = $('div.addedcell');
+			for(var i = 0; i < $(cell).length; i++) {
+				if($(cell).eq(i).attr('status') == "tmp") {
+					$(cell).eq(i).parent().remove();
+				}
+			}
+	}
+})
+
 $(document).ready(function() {
-	window_size();
 	var data = $('.courses');
 	for(var i = 0; i < data.length; i++) {
 		var selected = {
@@ -237,17 +333,46 @@ $(document).ready(function() {
 			time : $(data).eq(i).data('time'),
 			instructor : $(data).eq(i).data('instructor'),
 			className : $(data).eq(i).data('classname'),
-			classCredit : $(data).eq(i).data('classcredit')
+			classCredit : $(data).eq(i).data('classcredit'),
+			class_id : $(data).eq(i).data('classid')
+
 		}
 		test(selected, 1);
 	}
 });
 
 
-$('#table-clear').click(function(e) {
-	e.preventDefault();
-  e.stopPropagation();
-	alert("사용하실 수 없습니다");
+$('#class-save').click(function() {
+	var data = new Array();
+	var addedcell = $('div.addedcell')
+	for (var i = 0; i < addedcell.length; i++) {
+		data.push($(addedcell).eq(i).attr('class-id'));
+	}
+	var data = data.filter(function(itm, i, a){
+		return i == a.indexOf(itm);
+	});
+	$.ajax({
+		type: "post",
+		url : "/schedules",
+		data: {class_id: data},
+		success: function(data, status){
+	  	location.href='/schedules/' + data;
+	  },
+	 	error: function(e) {
+	 		alert("문제가 발생했습니다. 다시 시도해 주세요");
+	 	}
+	});
+});
+
+$('#majorselector').change(function() {
+	$.ajax({
+		type: "post",
+		url : "/courses/test",
+		data: {major_id: this.options[this.selectedIndex].value},
+	 	error: function(e) {
+	 		alert("다시 시도해 주세요.");
+	 	}
+	});
 });
 
 
@@ -258,7 +383,5 @@ $('#share_button').click(function(e){
 	  href: window.location.href,
 	}, function(response){});
 });
-
-
 
 new Clipboard('#share-url');

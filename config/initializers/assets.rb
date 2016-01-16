@@ -11,3 +11,6 @@ Rails.application.config.assets.version = '1.0'
 Rails.application.config.assets.precompile += %w( courses.js )
 Rails.application.config.assets.precompile += %w( favicon.ico )
 Rails.application.config.assets.precompile += %w( schedules.js )
+
+Rails.application.config.assets.precompile += %w( test.js )
+Rails.application.config.assets.precompile += %w( menu.js )

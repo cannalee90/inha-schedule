@@ -250,10 +250,14 @@
 				</tbody>
 			</table>
 		</div><!--end of result_show_wrapper-->
+		<div class="form-group">
+			<%= button_to "수정하기", edit_schedule_path(Schedule.find(params[:id])), method: "get", class: "btn btn-primary btn-search btn-lg" %>
+		</div>
 	</div><!--end of content_wrapper-->
 </div><!--end of container-->
 <% @courses.each do |c| %>
-	<%= content_tag "div", class: "courses", display: "hidden", data: {code: c.code, time: c.time, instructor: c.instructor, classname: c.title, classcredit: c.credit } do %>
+	<%= content_tag "div", class: "courses", display: "hidden", data: {classId: c.id, code: c.code, time: c.time, instructor: c.instructor, classname: c.title, classcredit: c.credit } do %>
 	<% end %>
 <% end %>
+
 <%= javascript_include_tag params[:controller] %>
