@@ -5,12 +5,7 @@ class CoursesController < ApplicationController
 
 
   def clear
-    respond_to do |format|
-      format.js {
-        render :template => "/courses/clear.js.erb",
-               :layout => false
-      }
-    end
+    render "/courses/clear.js.erb"
   end
 
 
@@ -25,31 +20,17 @@ class CoursesController < ApplicationController
       @ret = Course.title(query)
       @ret = (@ret.count == 0) ? Course.title('%' + query.gsub!(/(.)/){$1.concat('%')}) : @ret
     end
-    respond_to do |format|
 
-      if(query.length >= 2)
-        format.js {
-          render :template => "/courses/search.js.erb",
-                 :layout => false,
-                 :locals => {:re => @ret} #temporarliy added
-        }
-      else
-        format.js {
-          render :template => "/courses/letterStrict.js.erb",
-                 :layout => false
-        }
-      end
+    if(query.length >= 2)
+        render "/courses/search.js.erb", :locals => {:re => @ret} #temporarliy added
+    else
+        render :template => "/courses/letterStrict.js.erb"
     end
   end
 
   def test
-    respond_to do |format|
-        format.js {
-          render :template => "/courses/search.js.erb",
-                 :layout => false,
-                 :locals => {:re => Major.find(params[:major_id]).courses.where(year: 2016, semester: "spring", visible: true)} #temporarliy added
-        }
-    end
+    render "/courses/search.js.erb",
+           :locals => {:re => Major.find(params[:major_id]).courses.where(year: 2016, semester: "spring", visible: true)} #temporarliy added
   end
 
 end
