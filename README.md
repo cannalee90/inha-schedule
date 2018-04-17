@@ -2,6 +2,8 @@
 
 시간표를 좀 더 쉽게 작성하자
 
+[진행동기](https://github.com/cannalee90/inha-schedule/blob/master/inhatime.md)
+
 ## Getting Started
 
 ```
